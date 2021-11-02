@@ -1,0 +1,249 @@
+form .input-group-addon button 
+{
+	margin: -1px -1px -1px -1px;
+}
+form .input-group-addon button .glyphicon-search
+{
+	margin: 7px 10px 7px 10px;
+}
+
+img.form
+{
+    height: 110px;
+    width: 110px;
+    padding: 2px;
+    margin: 20px;
+}
+.texte
+{
+    text-align: center; 
+    color:rgb(255,221,0);
+}
+
+.contenue{
+    width: 50%;
+    border-radius: 20px;
+    box-shadow: 0 5px 5px rgba(0,0,0,.4);
+    margin: 50px auto;
+    display: flex;
+    border-color: rgb(255,255,255);
+}
+.info{
+    background-color: rgb(255,221,0);
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: rgb(0, 0, 0);
+}
+@media screen and (max-width: 640px) {
+    .contenue{width: 90%;}
+    .info{
+        display: none;
+    }
+    .forme{
+        width: 90%;
+        border-top-left-radius:20px;
+        border-bottom-left-radius:20px;
+    }
+    .formsansicon{
+        width: 90%;
+        border-radius:20px;
+    }
+}
+@media screen and (min-width: 642px) and (max-width:800px){
+    .contenue{width: 70%;}
+}
+
+.forme{
+    width: 100%;
+    background-color: #fff;
+    border-top-right-radius:20px;
+    border-bottom-right-radius:20px;
+    border-top:1px solid #ccc;
+    border-right:1px solid #ccc;
+}
+.formsansicon{
+    width: 100%;
+    background-color: #fff;
+    border-radius:20px;
+    border-radius:20px;
+    border-top:1px solid #ccc;
+    border-right:1px solid #ccc;
+}
+form{
+    padding: 0 1em;
+}
+.input {
+    width: 100%;
+    border:0px solid transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #aaa;
+    padding: 1em .1em .1em;
+    padding-left: 2em;
+    outline:none;
+    margin:1.5em auto;
+    transition: all .5s ease;
+    padding-left: 0;
+}
+.input:focus, .input:hover{
+    border-bottom-color: rgb(255,221,0);
+    box-shadow: 0 0 5px rgb(151, 165, 22); 
+    border-radius: 4px;
+}
+
+.btn.btnduform{
+    transition: all .5s ease;
+    width: 70%;
+    border-radius: 110px;
+    color:rgb(255,221,0);
+    font-weight: 600;
+    font-size: 20px;
+    background-color: #fff;
+    border: 1px solid rgb(255,221,0);
+    margin-top: 1.5em;
+    margin-bottom: 1em;
+    padding-top: 10px;
+    padding-bottom:10px;
+}
+.btn.btnduform:hover, .btn.btnduform:focus {
+    background-color: rgb(255,221,0);
+    color:#fff;
+}
+.gender-details
+{
+	text-align: left;
+}
+div .gender-details .gender-titre
+{
+	color: rgb(255,221,0);
+}
+form .user
+{
+	display: flex; /* alligner sur la meme ligne*/
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin: 20px 0 12px 0;
+}
+form .input-box
+{
+	width: calc(100% / 2 - 20px); /* aligner 2 a 2*/
+	margin-bottom: 15px;
+}
+form .input-box
+{
+	font-weight: 500;
+	margin-bottom: 5px;
+	display: block;
+}
+
+
+form .gender-details .gender-titre
+{
+	font-size: 20px;
+}
+
+form .gender-details .categorie
+{
+	margin: 15px 0;
+	justify-content: space-between;
+}
+.gender-details .categorie label
+{
+	display: flex;
+	align-items: center;
+}
+.gender-details .categorie .dot
+{
+	height: 12px;
+	width: 12px;
+	background-color: rgb(255,255,255);
+	border-radius: 50%;
+	margin-right: 10px;
+	border: 5px solid transparent;
+	transition: all 0.3s ease;
+}
+#dot-1:checked ~ .categorie label .on,
+#dot-2:checked ~ .categorie label .two
+{
+	border-color: rgb(255,221,0); 
+	background-color: rgb(255,255,255); 
+}
+form input[type="radio"]
+{
+	display: none;
+}
+
+
+@media (max-width: 584px)
+{
+	form{
+		max-width: 100%;
+	}
+	form .user .input-box
+	{
+		width:100%;
+		margin-bottom: 15px;
+	}
+	form .gender-details .categorie
+	{
+		width: 100%;
+	}
+	 form .user
+	{
+		max-height: 300px;
+		overflow-y: scroll;
+	}
+	.user::-webkit-scrollbar
+	{
+		width: 0;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.fa-whatsapp {
+    color: #25d366;
+  }
+.fa-comment-alt {
+    color: #3f25d3;
+  }
+.fa-envelope {
+    color: #000000;
+  }
+  .fa-instagram {
+    color: #c32aa3;
+  }
+  .fa-facebook {
+    color: #273c75;
+  }
+  .fa-twitter {
+    color: #1da1f2;
+  }

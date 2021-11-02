@@ -1,0 +1,50 @@
+img.logo
+{
+    width: 50px;
+    border-radius:25%;
+}
+
+.bgnavouzin
+{
+    background-color: black;
+}
+.jaune:hover
+{
+    background-color:rgb(255,221,0);
+    color: black;
+}
+.jaunehover
+{
+    background-color:rgb(255,221,0);
+    color: black;
+}
+.bold
+{
+    font-weight:bold;
+}
+img.commande
+{
+    border-radius: 50%;
+}
+.textealigner
+{
+    text-align: center;
+    align-items: center;
+}
+.itemproche
+{
+    margin-left: 25%;
+    margin-right: 25%;
+}
+img.money
+{
+    margin-top: 40px;
+    width: 175px;
+    height: 100px;
+}
+img.wmoney
+{
+    width: 100px;
+    height: 100px;
+}
+
