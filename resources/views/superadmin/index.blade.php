@@ -62,6 +62,12 @@
                     <span>Client </span>
                 </a> 
             </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item jaune">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
+                </a> 
+            </li>
 
             <hr class="sidebar-divider">
             <li class="nav-item jaune">

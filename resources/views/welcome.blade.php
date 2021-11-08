@@ -37,23 +37,25 @@
                                 </div>
                                 <div class="modal-body">
                                   <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4">
                                       <a href="{{ route('register') }}">
-                                        <button type="button" class="btn btn-warning form-control">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                       Client</button>
+                                        <button type="button" class="btn btn-warning form-control"  style="width: 140px">
+                                        <i class="fas fa-user "> Client</i>
+                                       </button>
                                       </a>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4">
                                       <a href="{{ url('/registercommercant') }}">
-                                        <button type="button" class="btn btn-warning form-control">
-                                        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                         Commercant</button>
+                                        <button type="button" class="btn btn-warning form-control" style="width: 140px">
+                                        <i class="fas fa-shopping-cart">Commercant</i> 
+                                         </button>
                                       </a>
                                     </div>
+                                    <div class="col-md-1"></div>
                                   </div>
-
-                                    
+   
                                 </div>
                                 <div class="modal-footer">
                                   <a href="{{ url('/') }}" >

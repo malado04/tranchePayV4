@@ -195,7 +195,13 @@
     </div>
     <div class="col-md-8"></div>      
 </div>
-<H1 class="h1transaction ">Listes des commmandes :</H1>
+<div class="row textealigner">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <H1>Listes des commmandes</H1>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">

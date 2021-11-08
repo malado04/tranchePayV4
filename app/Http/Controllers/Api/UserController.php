@@ -26,7 +26,29 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        user::create($request->all());
+        if($request->hasfile('image'))
+        {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $image = time().'.'.$extension;
+            $file->move('logo/',$image );
+        
+        $user = User::create([
+            'prenom' => $request->prenom,
+            'nom' => $request->nom,
+            'boutique' => $request->boutique,
+            'site' => $request->site,
+            'type' => $request->type,
+            'email' => $request->email,
+            'telephone' => $request->telephone,
+            'commentaire' => $request->commentaire,
+            'valide' => $request->valide,
+            'categorie' => $request->categorie,
+            'image'=> $image,
+            'password' => Hash::make($request->password),
+        ]);
+        event(new Registered($user));
+        }
     }
 
     /**

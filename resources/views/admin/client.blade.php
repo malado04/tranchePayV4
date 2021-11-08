@@ -20,11 +20,10 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('css/logo.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/moncss.css')}}" rel="stylesheet" type="text/css">
-    
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/bootstraptableau.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     
 
 
@@ -53,7 +52,7 @@
                     <span>Acceuil</span></a>
             </li>
             <hr class="sidebar-divider">
-            <li class="nav-item jaune">
+            <li class="nav-item jaune jaunehover">
                 <a class="nav-link collapsed" href="{{ route('pageclientad') }}" >
                     <span>Client </span>
                 </a> 
@@ -210,8 +209,19 @@
     </div>
 
     <hr class="sidebar-divider">
-        <a href="{{route('creerclientad')}}" class="btn btn-secondary">Creer un client</a>
-    <H1 class="h1transaction ">Listes des partenaires</H1>
+    <div class="row textealigner">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <H1>Listes des clients</H1>
+            @if(session()->has("successDelete"))
+                <div class="alert alert-success center" >
+                    <h6 > {{session()->get('successDelete')}}</h6>
+                </div>
+            @endif
+            <a href="{{route('creerclientad')}}" class="h1transaction btn btn-warning">Creer un client</a>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
@@ -222,6 +232,7 @@
                                     <th scope="col">Prenom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Telephone</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -232,6 +243,15 @@
                                     <th>{{$client->prenom}}</th>
                                     <th>{{$client->nom}}</th>
                                     <th>{{$client->telephone}}</th>
+                                    <th>   
+                                        <a class="btn btn-info" href="{{route('editclient',['client'=>$client->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
+                                        <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet client?'))
+                                        {getElementById('form-{{$client->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
+                                        <form id="form-{{$client->id}}"action="{{route('supprimerclient',['suppclient'=>$client->id])}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="delete">
+                                        </form>
+                                    </th>
                                 </tr>
                                 @endif
                                 @endforeach

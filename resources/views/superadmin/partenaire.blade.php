@@ -236,13 +236,13 @@
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Numero</th>
+                                    <th scope="col">Logo</th>
                                     <th scope="col">Prenom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Boutique</th>
                                     <th scope="col">Site</th>
-                                    <th scope="col">E-commerce</th>
                                     <th scope="col">Telephone</th>
+                                    <th scope="col">Etat</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -250,13 +250,31 @@
                                 @foreach ($listepartenaire as $partenaire)
                                 @if($partenaire->type == 'partenaire')
                                 <tr>
-                                    <th>{{$partenaire->id}}</th>
+                                    <th>
+                                        <img src="{{asset ('logo/'.$partenaire->image)}}" width="50px" height="50px" alt="logo">
+                                    </th>
                                     <th>{{$partenaire->prenom}}</th>
                                     <th>{{$partenaire->nom}}</th>
                                     <th>{{$partenaire->boutique}}</th>
                                     <th>{{$partenaire->site}}</th>
-                                    <th>{{$partenaire->ecommerce}}</th>
                                     <th>{{$partenaire->telephone}}</th>
+                                    <th>
+                                        @if($partenaire->valide == 0)
+                                            <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment activer cet partenaire?'))
+                                            {getElementById('form-{{$partenaire->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
+                                            <form id="form-{{$partenaire->id}}"action="{{route('sactiverpartenaire',['sactiverpartenaire'=>$partenaire->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @else
+                                            <a href="#" class="btn btn-success" style="width:40px" onclick="if(confirm('Voulez vous vraiment desactiver cet partenaire?'))
+                                            {getElementById('form-{{$partenaire->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
+                                            <form id="form-{{$partenaire->id}}"action="{{route('sdesactivepartenaire',['sdesactivepartenaire'=>$partenaire->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @endif
+                                    </th>
                                     <th>   
                                         <a class="btn btn-info" href="{{route('seditpartenaire',['spartenaire'=>$partenaire->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
                                         <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet partenaire?'))

@@ -21,10 +21,10 @@
     <link href="{{asset('css/logo.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/moncss.css')}}" rel="stylesheet" type="text/css">
     
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/bootstraptableau.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     
 
 
@@ -60,7 +60,7 @@
             </li>
 
             <hr class="sidebar-divider">
-            <li class="nav-item jaune">
+            <li class="nav-item jaune jaunehover">
                 <a class="nav-link collapsed" href="{{ route('pagepartenairead') }}" >
                     <span>Partenaire</span>
                 </a> 
@@ -211,8 +211,19 @@
     </div>
 
     <hr class="sidebar-divider">
-        <a href="{{route('creerpartenairead')}}" class="btn btn-secondary">Creer un partenaire</a>
-    <H1 class="h1transaction ">Listes des partenaires</H1>
+    <div class="row textealigner">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <H1>Listes des partenaires</H1>
+            @if(session()->has("successDelete"))
+                <div class="alert alert-success center" >
+                    <h6 > {{session()->get('successDelete')}}</h6>
+                </div>
+            @endif
+            <a href="{{route('creerpartenairead')}}" class="h1transaction btn btn-warning">Creer un partenaire</a>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
                 <div class="row">
                     <div class="col-md-2"></div>
                     <div class="col-md-8">
@@ -226,7 +237,7 @@
                                     <th scope="col">Site</th>
                                     <th scope="col">E-commerce</th>
                                     <th scope="col">Telephone</th>
-                                    <th scope="col">email</th>
+                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,7 +251,15 @@
                                     <th>{{$partenaire->site}}</th>
                                     <th>{{$partenaire->ecommerce}}</th>
                                     <th>{{$partenaire->telephone}}</th>
-                                    <th>{{$partenaire->email}}</th>
+                                    <th>   
+                                        <a class="btn btn-info" href="{{route('editpartenaire',['partenaire'=>$partenaire->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
+                                        <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet partenaire?'))
+                                        {getElementById('form-{{$partenaire->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
+                                        <form id="form-{{$partenaire->id}}"action="{{route('supprimerpartenaire',['supppartenaire'=>$partenaire->id])}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="delete">
+                                        </form>
+                                    </th>
                                 </tr>
                                 @endif
                                 @endforeach

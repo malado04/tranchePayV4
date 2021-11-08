@@ -196,4 +196,170 @@ class AdminController extends Controller
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    ////////////// supprimer client//////////////////////////////////////////
+
+    public function supprimerclient(user $suppclient)
+	{
+        $nomcomplet=$suppclient->nom." ".$suppclient->prenom;
+        $suppclient->delete();
+        return back()->with("successDelete","Le client $nomcomplet est supprimer avec succee");
+	}
+////////////// page editer client//////////////////////////////////////////
+
+    public function editclient(user $client)
+    {
+        $listecommande=enregistrercommande::get();
+        $listeversement=versement::get();
+        return view('admin.editerclient', compact('client','listecommande','listeversement'));
+    }
+////////////// MAJ client//////////////////////////////////////////
+
+    public function updateclient(Request $request, user $userclient)
+    {
+        $request->validate ( 
+        [
+            'prenom' => ['required', 'string', 'max:255'],
+            'nom' => ['required', 'string','max:255'],
+            'type' => ['required', 'string','max:255'],
+            'telephone' => ['required', 'integer'],            
+            'password' => ['required', 'confirmed', 'min:4', 'max:4', Rules\Password::defaults()],
+        ]);
+
+        $userclient->update(
+        [
+            'prenom' => $request->prenom,
+            'nom' => $request->nom,
+            'type' => $request->type,
+            'telephone' => $request->telephone,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return back()->with("updatereussit","Mise a jour reussit!");
+    }
+
+////////////// supprimer partenaire//////////////////////////////////////////
+
+public function supprimerpartenaire(user $supppartenaire)
+{
+    $nomcomplet=$supppartenaire->nom." ".$supppartenaire->prenom;
+    $supppartenaire->delete();
+    return back()->with("successDelete","Le partenaire $nomcomplet est supprimer avec succee");
+}
+////////////// Page editer partenaire//////////////////////////////////////////
+    
+
+    public function editpartenaire(user $partenaire)
+    {
+        $listecommande=enregistrercommande::get();
+        $listeversement=versement::get();
+        return view('admin.editerpartenaire', compact('partenaire','listecommande','listeversement'));
+    }
+////////////// MAJ partenaire//////////////////////////////////////////
+
+    public function updatepartenaire(Request $request, user $userpartenaire)
+    {
+        $request->validate ( 
+        [
+            'prenom' => ['required', 'string', 'max:255'],
+            'nom' => ['required', 'string','max:255'],
+            'boutique' => ['required', 'string','max:255'],
+            'site' => ['required', 'string','max:255'],
+            'ecommerce' => ['required', 'string','max:255'],
+            'email' => ['required', 'email','max:255'],
+            'type' => ['required', 'string','max:255'],
+            'telephone' => ['required', 'integer'],            
+            'password' => ['required', 'confirmed', 'min:4', 'max:4', Rules\Password::defaults()],
+        ]);
+
+        $userpartenaire->update(
+        [
+            'prenom' => $request->prenom,
+            'nom' => $request->nom,
+            'boutique' => $request->boutique,
+            'site' => $request->site,
+            'ecommerce' => $request->ecommerce,
+            'email' => $request->email,
+            'type' => $request->type,
+            'telephone' => $request->telephone,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return back()->with("updatereussit","Mise a jour reussit!");
+    }
+
+    
+////////////// supprimer commercant//////////////////////////////////////////
+
+    public function supprimercommercant(user $suppcommercant)
+    {
+        $nomcomplet=$suppcommercant->nom." ".$suppcommercant->prenom;
+        $suppcommercant->delete();
+        return back()->with("successDelete","Le commercant $nomcomplet est supprimer avec succee");
+    }
+////////////// Page editer commercant//////////////////////////////////////////
+    
+
+    public function editcommercant(user $commercant)
+    {
+        $listecommande=enregistrercommande::get();
+        $listeversement=versement::get();
+        return view('superadmin.editercommercant', compact('commercant','listecommande','listeversement'));
+    }
+////////////// MAJ commercant//////////////////////////////////////////
+
+    public function updatecommercant(Request $request, user $usercommercant)
+    {
+        $request->validate ( 
+        [
+            'prenom' => ['required', 'string', 'max:255'],
+            'nom' => ['required', 'string','max:255'],
+            'boutique' => ['required', 'string','max:255'],
+            'adresse' => ['required', 'string','max:255'],
+            'email' => ['required', 'email','max:255'],
+            'type' => ['required', 'string','max:255'],
+            'telephone' => ['required', 'integer'],            
+            'password' => ['required', 'confirmed', 'min:4', 'max:4', Rules\Password::defaults()],
+        ]);
+
+        $usercommercant->update(
+        [
+            'prenom' => $request->prenom,
+            'nom' => $request->nom,
+            'boutique' => $request->boutique,
+            'adresse' => $request->site,
+            'email' => $request->email,
+            'type' => $request->type,
+            'telephone' => $request->telephone,
+            'password' => Hash::make($request->password)
+        ]);
+
+        return back()->with("updatereussit","Mise a jour reussit!");
+    }
+
 }

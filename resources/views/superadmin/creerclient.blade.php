@@ -211,8 +211,9 @@
                                 @endforeach
                                 @endif
                                 <h2 class="texte">Creer client</h2>
-                                <form control="" class="form-group" method="post" action="{{route('creationclient')}}">
+                                <form control="" class="form-group" method="post" action="{{route('creationclient')}}"enctype="multipart/form-data">
                                 @csrf
+                                            <input type="file" name="image" class="form-control input" >
                                     <!-- <div class="user"> -->
                                         <!-- <div .input-box> -->
                                             <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom du client" required="required">

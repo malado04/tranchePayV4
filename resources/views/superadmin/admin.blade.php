@@ -228,6 +228,16 @@
                     <h6 > {{session()->get('successDelete')}}</h6>
                 </div>
             @endif
+            @if(session()->has("accessActiver"))
+                <div class="alert alert-success center" >
+                    <h6 > {{session()->get('accessActiver')}}</h6>
+                </div>
+            @endif
+            @if(session()->has("accessDesactiver"))
+                <div class="alert alert-danger center" >
+                    <h6 > {{session()->get('accessDesactiver')}}</h6>
+                </div>
+            @endif
             <a href="{{route('creeradmin')}}" class="h1transaction btn btn-warning">Creer un administrateur</a>
         </div>
         <div class="col-md-3"></div>
@@ -239,10 +249,11 @@
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Numero</th>
+                                    <th scope="col">Profile</th>
                                     <th scope="col">Prenom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Telephone</th>
+                                    <th scope="col">Etat</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -250,10 +261,29 @@
                                 @foreach ($listeadmin as $admin)
                                 @if($admin->type == 'admin')
                                 <tr>
-                                    <th>{{$admin->id}}</th>
+                                    <th>
+                                        <img src="{{asset ('logo/'.$admin->image)}}" width="50px" height="50px" alt="logo">
+                                    </th>
                                     <th>{{$admin->prenom}}</th>
                                     <th>{{$admin->nom}}</th>
                                     <th>{{$admin->telephone}}</th>
+                                    <th>
+                                    @if($admin->valide == 0)
+                                        <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment activer cet administrateur?'))
+                                        {getElementById('form-{{$admin->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
+                                        <form id="form-{{$admin->id}}"action="{{route('activeradmin',['activeradmin'=>$admin->id])}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="put">
+                                        </form>
+                                    @else
+                                        <a href="#" class="btn btn-success" style="width:40px" onclick="if(confirm('Voulez vous vraiment desactiver cet administrateur?'))
+                                        {getElementById('form-{{$admin->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
+                                        <form id="form-{{$admin->id}}"action="{{route('desactiveradmin',['desactiveradmin'=>$admin->id])}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="_method" value="put">
+                                        </form>
+                                    @endif
+                                    </th>
                                     <th>
                                         <a class="btn btn-info" href="{{route('editadmin',['admin'=>$admin->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
 

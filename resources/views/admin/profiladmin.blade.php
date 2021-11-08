@@ -194,6 +194,10 @@
                             <div class="alert alert-success  text-center form-control "  >
                                 {{session()->get('succescreate')}}
                             </div>
+                            @elseif(session()->has("noncreate"))
+                            <div class="alert alert-danger  text-center form-control "  >
+                                {{session()->get('noncreate')}}
+                            </div>
                             @else
                             @foreach ($errors->all() as $error)
                                 <p class="alert alert-danger  text-center form-control "> {{$error}} </p>

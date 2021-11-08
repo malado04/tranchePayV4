@@ -16,11 +16,12 @@ class superadminSeeder extends Seeder
     public function run()
     {
         $user=user::create([
-            'prenom' => 'Trache',
-            'nom' => 'pay',
+            'prenom' => 'Super',
+            'nom' => 'ADMIN',
             'boutique' => '',
             'site' => '',
-            'ecommerce' => '',
+            'valide' => 1,
+            'type' => 'superadmin',
             'email' => '',
             'telephone' => 777777777,
             'password' => bcrypt('7777'),

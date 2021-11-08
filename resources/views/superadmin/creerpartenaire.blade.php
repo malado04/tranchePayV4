@@ -211,35 +211,34 @@
                                 @endforeach
                                 @endif
                                 <h2 class="texte">Creer partenaire</h2>
-                                <form control="" class="form-group" method="post" action="{{route('creationpartenaire')}}">
+                                <form control="" class="form-group" method="post" action="{{route('creationpartenaire')}}" enctype="multipart/form-data">
                                 @csrf
-                                    <!-- <div class="user"> -->
-                                        <!-- <div .input-box> -->
-                                            <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="nom" class="form-control input" placeholder="Nom" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="boutique" class="form-control input" value="Pas de boutique" placeholder="Nom de la boutique (Facultatif)" >
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="site" class="form-control input" placeholder="Site internet" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="ecommerce" class="form-control input" placeholder="E-commerce" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="number" name="telephone" class="form-control input" placeholder="telephone" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <x-input id="email" class="form-control input" type="email" name="email"  placeholder="Adresse mail partenaire" required="required" />
+                                    
+                                    <input type="file" name="image" class="form-control input" >
+                                
+                                    <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom" required="required">
+                                
+                                    <input type="text" name="nom" class="form-control input" placeholder="Nom" required="required">
+                                
+                                    <input type="text" name="boutique" class="form-control input" value="Pas de boutique" placeholder="Nom de la boutique (Facultatif)" >
+                                
+                                    <input type="text" name="site" class="form-control input" placeholder="Site internet" required="required">
 
-                                            <input type="text" name="type" value="partenaire" style="display:none;" >
+                                    <input type="text" name="commentaire" class="form-control input" placeholder="La description" required="required">
 
-                                            <input id="password" class="form-control input" type="password" name="password" required="required" placeholder="Code PIN partenaire"/>
+                                    @foreach ($listecategorie as $categorie)
+                                        <input type="checkbox" name="categorie[]" value="{{$categorie->libelle}}">{{$categorie->libelle}}
+                                    @endforeach
+                                
+                                    <input type="number" name="telephone" class="form-control input" placeholder="telephone" required="required">
+                                
+                                    <x-input id="email" class="form-control input" type="email" name="email"  placeholder="Adresse mail partenaire" required="required" />
 
-                                            <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation code PIN partenaire"/>
+                                    <input type="text" name="type" value="partenaire" style="display:none;" >
+
+                                    <input id="password" class="form-control input" type="password" name="password" required="required" placeholder="Code PIN partenaire"/>
+
+                                    <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation code PIN partenaire"/>
                                     <div align="center" >
                                         <input type="submit" name="VALIDER" value="CREER" class="btn btnduform">
                                     </div> 

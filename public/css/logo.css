@@ -3,6 +3,11 @@ img.logo
     width: 50px;
     border-radius:25%;
 }
+input.logo
+{
+    width: 100px;
+    height: 100px;
+}
 
 .bgnavouzin
 {
@@ -16,7 +21,7 @@ img.logo
 .jaunehover
 {
     background-color:rgb(255,221,0);
-    color: black;
+    text-decoration-color: black;
 }
 .bold
 {
@@ -47,4 +52,3 @@ img.wmoney
     width: 100px;
     height: 100px;
 }
-

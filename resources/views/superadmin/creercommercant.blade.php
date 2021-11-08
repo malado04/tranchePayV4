@@ -211,28 +211,23 @@
                                 @endforeach
                                 @endif
                                 <h2 class="texte">Creer commercant</h2>
-                                <form control="" class="form-group" method="post" action="{{route('creationcommercant')}}">
+                                <form control="" class="form-group" method="post" action="{{route('creationcommercant')}}" enctype="multipart/form-data">
                                 @csrf
-                                    <!-- <div class="user"> -->
-                                        <!-- <div .input-box> -->
+                                            <input type="file" name="image" class="form-control input" >
+                                          
                                             <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
+                                        
                                             <input type="text" name="nom" class="form-control input" placeholder="Nom" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
+                                        
                                             <input type="text" name="boutique" class="form-control input" placeholder="Nom de la boutique" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
+                                        
                                             <input type="text" name="site" class="form-control input" placeholder="L'adresse de la boutique" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
+                                        
                                             <input type="number" name="telephone" class="form-control input" placeholder="telephone" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <x-input id="email" class="form-control input" type="email" name="email"  placeholder="Adresse mail" required="required" />
 
-                                            <input type="text" name="type" value="commercant" style="display:none;" >
+                                            <input type="text" name="type" value="commercant" style="display:none;">
+                                         
+                                            <x-input id="email" class="form-control input" type="email" name="email"  placeholder="Adresse mail" required="required" />
 
                                             <input id="password" class="form-control input" type="password" name="password" required="required" placeholder="Code PIN commercant"/>
 
@@ -287,7 +282,7 @@
     <!-- Page level custom scripts -->
     <script src="{{asset ('template/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset ('template/js/demo/chart-pie-demo.js')}}"></script>
-
+    
 </body>
 
 </html>

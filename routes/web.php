@@ -84,6 +84,14 @@ Route::group(['middleware'=>['auth', 'role:superadmin']], function()
 	route::get('/superadmin/client/{sclient}','App\Http\Controllers\superadminController@seditclient')->name('seditclient'); 
 	Route::delete('/superadmin/client/{ssuppclient}','App\Http\Controllers\superadminController@ssupprimerclient')->name('ssupprimerclient');
 	Route::put('/superadmin/client/{suserclient}','App\Http\Controllers\superadminController@supdateclient')->name('supdateclient');
+
+	Route::get('/superadmin/categorie', 'App\Http\Controllers\superadminController@pagecategorie')->name('pagecategorie');
+	route::get('/superadmin/creercategorie','App\Http\Controllers\superadminController@creercategorie')->name("creercategorie"); 
+	route::post('/superadmin/creationcategorie','App\Http\Controllers\superadminController@creationcategorie')->name("creationcategorie"); 
+
+	route::get('/superadmin/categorie/{scategorie}','App\Http\Controllers\superadminController@seditcategorie')->name('seditcategorie'); 
+	Route::delete('/superadmin/categorie/{ssuppcategorie}','App\Http\Controllers\superadminController@ssupprimercategorie')->name('ssupprimercategorie');
+	Route::put('/superadmin/categorie/{scategorie}','App\Http\Controllers\superadminController@supdatecategorie')->name('supdatecategorie');
 	
 	route::get('/superadmin/partenaire/{spartenaire}','App\Http\Controllers\superadminController@seditpartenaire')->name('seditpartenaire'); 
 	Route::delete('/superadmin/partenaire/{ssupppartenaire}','App\Http\Controllers\superadminController@ssupprimerpartenaire')->name('ssupprimerpartenaire');
@@ -92,6 +100,16 @@ Route::group(['middleware'=>['auth', 'role:superadmin']], function()
 	route::get('/superadmin/commercant/{scommercant}','App\Http\Controllers\superadminController@seditcommercant')->name('seditcommercant'); 
 	Route::delete('/superadmin/commercant/{ssuppcommercant}','App\Http\Controllers\superadminController@ssupprimercommercant')->name('ssupprimercommercant');
 	Route::put('/superadmin/commercant/{susercommercant}','App\Http\Controllers\superadminController@supdatecommercant')->name('supdatecommercant'); 
+
+	Route::put('/superadmin/adminactive/{activeradmin}','App\Http\Controllers\superadminController@activeradmin')->name('activeradmin'); 
+	Route::put('/superadmin/admindesactive/{desactiveradmin}','App\Http\Controllers\superadminController@desactiveradmin')->name('desactiveradmin'); 
+	Route::put('/superadmin/scommercantactive/{sactivercommercant}','App\Http\Controllers\superadminController@sactivercommercant')->name('sactivercommercant'); 
+	Route::put('/superadmin/sdesactivecommercant/{sdesactivecommercant}','App\Http\Controllers\superadminController@sdesactivecommercant')->name('sdesactivecommercant');
+	Route::put('/superadmin/spartenaireactive/{sactiverpartenaire}','App\Http\Controllers\superadminController@sactiverpartenaire')->name('sactiverpartenaire'); 
+	Route::put('/superadmin/sdesactivepartenaire/{sdesactivepartenaire}','App\Http\Controllers\superadminController@sdesactivepartenaire')->name('sdesactivepartenaire'); 
+	Route::put('/superadmin/sclientactive/{sactiverclient}','App\Http\Controllers\superadminController@sactiverclient')->name('sactiverclient'); 
+	Route::put('/superadmin/sdesactiveclient/{sdesactiveclient}','App\Http\Controllers\superadminController@sdesactiveclient')->name('sdesactiveclient'); 
+
 });
 
 Route::group(['middleware'=>['auth', 'role:admin']], function()
@@ -116,9 +134,19 @@ Route::group(['middleware'=>['auth', 'role:admin']], function()
 	Route::get('/admin/versement', 'App\Http\Controllers\AdminController@pageversementad')->name('pageversementad');
 	Route::get('/admin/commande', 'App\Http\Controllers\AdminController@pagecommandead')->name('pagecommandead');
 
-});
+	route::get('/admin/client/{client}','App\Http\Controllers\adminController@editclient')->name('editclient'); 
+	Route::delete('/admin/client/{suppclient}','App\Http\Controllers\adminController@supprimerclient')->name('supprimerclient');
+	Route::put('/admin/client/{userclient}','App\Http\Controllers\adminController@updateclient')->name('updateclient');
+	
+	route::get('/admin/partenaire/{partenaire}','App\Http\Controllers\adminController@editpartenaire')->name('editpartenaire'); 
+	Route::delete('/admin/partenaire/{supppartenaire}','App\Http\Controllers\adminController@supprimerpartenaire')->name('supprimerpartenaire');
+	Route::put('/admin/partenaire/{userpartenaire}','App\Http\Controllers\adminController@updatepartenaire')->name('updatepartenaire');
+	
+	route::get('/admin/commercant/{commercant}','App\Http\Controllers\adminController@editcommercant')->name('editcommercant'); 
+	Route::delete('/admin/commercant/{suppcommercant}','App\Http\Controllers\adminController@ssupprimercommercant')->name('supprimercommercant');
+	Route::put('/admin/commercant/{usercommercant}','App\Http\Controllers\adminController@supdatecommercant')->name('updatecommercant'); 
 
-Route::get('test', 'App\Http\Controllers\superadminController@test')->middleware('role:admin,superadmin');
+});
 
 
 require __DIR__.'/auth.php';

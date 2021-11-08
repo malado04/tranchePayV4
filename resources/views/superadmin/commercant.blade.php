@@ -227,22 +227,33 @@
                     <h6 > {{session()->get('successDelete')}}</h6>
                 </div>
             @endif
+            @if(session()->has("accessActiver"))
+                <div class="alert alert-success center" >
+                    <h6 > {{session()->get('accessActiver')}}</h6>
+                </div>
+            @endif
+            @if(session()->has("accessDesactiver"))
+                <div class="alert alert-danger center" >
+                    <h6 > {{session()->get('accessDesactiver')}}</h6>
+                </div>
+            @endif
             <a href="{{route('creercommercant')}}" class="h1transaction btn btn-warning">Creer un commercant</a>
         </div>
         <div class="col-md-3"></div>
     </div>
                 <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Numero</th>
+                                    <th scope="col">Logo</th>
                                     <th scope="col">Prenom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Boutique</th>
                                     <th scope="col">Adresse</th>
                                     <th scope="col">Telephone</th>
+                                    <th scope="col">Etat</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -250,12 +261,31 @@
                                 @foreach ($listecommercant as $commercant)
                                 @if($commercant->type == 'commercant')
                                 <tr>
-                                    <th>{{$commercant->id}}</th>
+                                    <th>
+                                        <img src="{{asset ('logo/'.$commercant->image)}}" width="50px" height="50px" alt="logo">
+                                    </th>
                                     <th>{{$commercant->prenom}}</th>
                                     <th>{{$commercant->nom}}</th>
                                     <th>{{$commercant->boutique}}</th>
                                     <th>{{$commercant->site}}</th>
                                     <th>{{$commercant->telephone}}</th>
+                                    <th>
+                                        @if($commercant->valide == 0)
+                                            <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment activer cet commercant?'))
+                                            {getElementById('form-{{$commercant->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
+                                            <form id="form-{{$commercant->id}}"action="{{route('sactivercommercant',['sactivercommercant'=>$commercant->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @else
+                                            <a href="#" class="btn btn-success" style="width:40px" onclick="if(confirm('Voulez vous vraiment desactiver cet commercant?'))
+                                            {getElementById('form-{{$commercant->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
+                                            <form id="form-{{$commercant->id}}"action="{{route('sdesactivecommercant',['sdesactivecommercant'=>$commercant->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @endif
+                                    </th>
                                     <th>   
                                         <a class="btn btn-info" href="{{route('seditcommercant',['scommercant'=>$commercant->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
                                         <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet commercant?'))
@@ -271,7 +301,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-2"></div>
+                    <div class="col-md-1"></div>
                 </div>
 
         

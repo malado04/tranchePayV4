@@ -211,8 +211,9 @@
                                 @endforeach
                                 @endif
                                 <h2 class="texte">Creer admin</h2>
-                                <form control="" class="form-group" method="post" action="{{route('creationadmin')}}">
+                                <form control="" class="form-group" method="post" action="{{route('creationadmin')}}"enctype="multipart/form-data">
                                 @csrf
+                                            <input type="file" name="image" class="form-control input" >
                                     <!-- <div class="user"> -->
                                         <!-- <div .input-box> -->
                                             <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom du admin" required="required">

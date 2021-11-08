@@ -10,19 +10,16 @@
     <meta name="author" content="">
 
     <title>TRANCHE PAY</title>
-    <link rel="icon" href="{{asset ('image/logo.jpeg')}}">
     <link href="{{asset('template/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/logo.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
     
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{asset('css/moncss.css')}}">
+    <link rel="icon" href="{{asset ('image/logo.jpeg')}}">
 
+    <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     
 
 
@@ -31,10 +28,10 @@
 <body id="page-top">
 
     <!-- Page Wrapper -->
-    <div id="wrapper">
+    <div id="wrapper" style="color:red">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bgnavouzin sidebar  sidebar-dark " id="accordionSidebar">
+        <ul class="bgnavouzin navbar-nav   sidebar   sidebar-dark " id="accordionSidebar">
             <!-- Sidebar - Brand -->
             <a style="background-color:rgb(255,221,0)" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard')}}">
                 <div  > 
@@ -56,7 +53,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="{{ route('listeversement') }}" >
-                    <span>Versements </span>
+                    <i class="fas fa-money-check-alt" style="color:white;"> Versement</i>
                 </a> 
             </li>
             
@@ -64,34 +61,34 @@
 
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="{{ route('mescommandes') }}" >
-                    <span>Commandes </span>
+                    <i class="fas fa-cart-arrow-down" style="color:white;"> Commande</i>
                 </a> 
             </li>
             <hr class="sidebar-divider">
 
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="{{ route('demandefinancement') }}" >
-                    <span>Demande de financement </span>
+                    <i class="fas fa-search-dollar"style="color:white" > Financement</i>
                 </a> 
             </li>
             <hr class="sidebar-divider">
 
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="#" >
-                    <span>Déplafonnement</span>
+                    <i class="fas fa-clipboard-check" style="color:white"> Déplafonnement</i>
                 </a> 
             </li>
             <hr class="sidebar-divider">
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="#" >
-                    <span>Utiliser un code promotionnel </span>
+                    <i class="fas fa-qrcode" style="color:white"> Utiliser un code promotionnel</i>
                 </a> 
             </li>
             <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link collapsed jaune" href="#" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
-                    <span>Inviter un ami</span>
+                    <i class="fas fa-people-arrows" style="color:White"> Inviter un ami</i>
                 </a>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -108,7 +105,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed jaune" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Service</span>
+                    <i class="fas fa-question" style="color:White"> Service</i>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -229,13 +226,13 @@
             <div class="modal-content">
                 <div class="modal-body">Voulez vous vraiment quitter la session</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                                <button class="btn btn-primary ">OUI</button>
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
                         </x-dropdown-link>
                     </form>
                 </div>

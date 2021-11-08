@@ -19,10 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('nom');
             $table->string('boutique')->nullable();
             $table->string('site')->nullable();
-            $table->string('ecommerce')->nullable();
             $table->string('email')->nullable();
             $table->string('type')->nullable();
-            $table->integer('telephone')->unique();
+            $table->string('image')->nullable();
+            $table->string('commentaire')->nullable();
+            $table->string('categorie')->nullable();
+            $table->boolean('valide')->default(0);
+            $table->string('telephone')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

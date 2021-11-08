@@ -181,7 +181,6 @@
             </div>
         </div>
     </div>
-    <H1 class="h1transaction ">texte presentation de la boutique</H1>
 
         
     </div>

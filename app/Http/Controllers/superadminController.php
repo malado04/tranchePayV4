@@ -7,7 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
-
+use Illuminate\Http\UploadedFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\enregistrercommande;
@@ -15,6 +15,7 @@ use App\Models\demandefinancement;
 use App\Models\aide;
 use App\Models\versement; 
 use App\Models\user;
+use App\Models\categorie;
 
 class superadminController extends Controller
 {
@@ -25,10 +26,7 @@ class superadminController extends Controller
         $listeadmin=user::get();
         return view('superadmin.admin',compact('listeadmin','listeversement','listecommande'));
     }
-    public function test()
-    {
-        return view('superadmin.test');
-    }
+    
     public function pageclient()
     {
         $listecommande=enregistrercommande::get();
@@ -76,7 +74,30 @@ class superadminController extends Controller
         $listeversement=versement::get();
         return view('superadmin.commande',compact('listeversement','listecommande'));
     }
+    public function pagecategorie()
+    {
+        $listecommande=enregistrercommande::get();
+        $listeversement=versement::get();
+        $listecategorie=categorie::get();
+        return view('superadmin.categorie',compact('listeversement','listecommande','listecategorie'));
+    }
 
+    public function creercategorie()
+    {
+        $listecommande=enregistrercommande::get();
+        $listeversement=versement::get();
+        return view('superadmin.creercategorie',compact('listeversement','listecommande'));
+    }
+    public function creationcategorie(Request $Request)
+    {
+        categorie::create(	
+        [
+            "libelle"=>$Request->libelle,
+            "description"=>$Request->description
+        ]);
+        
+        return back()->with("succescreate","La description est bien enregistré!!");
+    }
     public function creeradmin()
     {
         $listecommande=enregistrercommande::get();
@@ -94,16 +115,24 @@ class superadminController extends Controller
             'password' => ['required', 'confirmed', 'min:4', 'max:4', Rules\Password::defaults()],
 
         ]);
-
-        $user = User::create([
-            'prenom' => $request->prenom,
-            'nom' => $request->nom,
-            'type' => $request->type,
-            'telephone' => $request->telephone,
-            'password' => Hash::make($request->password),
-        ]);
-            $user->attachRole('admin');
-        event(new Registered($user));
+        if($request->hasfile('image'))
+            {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $image = time().'.'.$extension;
+                $file->move('logo/',$image );
+            $user = User::create([
+                'prenom' => $request->prenom,
+                'nom' => $request->nom,
+                'type' => $request->type,
+                'valide' => 1,
+                'image' => $image,
+                'telephone' => $request->telephone,
+                'password' => Hash::make($request->password),
+            ]);
+                $user->attachRole('admin');
+            event(new Registered($user));
+            }
         return redirect()->back()->with("succescreate","L'administrateur a été bien creer");
     }
 //////////////creation client//////////////////////////////////////////
@@ -124,16 +153,24 @@ class superadminController extends Controller
             'telephone' => ['required', 'integer', 'unique:users'],
             'password' => ['required', 'confirmed','integer','min:4', 'max:9999', Rules\Password::defaults()],
         ]);
+        if($request->hasfile('image'))
+            {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $image = time().'.'.$extension;
+                $file->move('logo/',$image );
 
-        $user = User::create([
-            'prenom' => $request->prenom,
-            'nom' => $request->nom,
-            'telephone' => $request->telephone,
-            'type' => $request->type,
-            'password' => Hash::make($request->password),
-        ]);
-            $user->attachRole('client');
-        event(new Registered($user));
+            $user = User::create([
+                'prenom' => $request->prenom,
+                'nom' => $request->nom,
+                'telephone' => $request->telephone,
+                'type' => $request->type,
+                'image' => $image,
+                'password' => Hash::make($request->password),
+            ]);
+                $user->attachRole('client');
+            event(new Registered($user));
+            }
         return redirect()->back()->with("succescreate","Le client a été bien creer");
     }
 //////////////creation partenaire//////////////////////////////////////////
@@ -142,7 +179,8 @@ class superadminController extends Controller
     {
         $listecommande=enregistrercommande::get();
         $listeversement=versement::get();
-        return view('superadmin.creerpartenaire',compact('listeversement','listecommande'));
+        $listecategorie=categorie::get();
+        return view('superadmin.creerpartenaire',compact('listeversement','listecommande','listecategorie'));
     }
 
     public function creationpartenaire(Request $request)
@@ -152,26 +190,36 @@ class superadminController extends Controller
             'nom' => ['required', 'string','max:255'],
             'boutique' => ['max:255'],
             'site' => ['max:255'],
-            'ecommerce' => ['string', 'max:255'],
             'type' => ['string', 'max:255'],
+            'image' => ['required'],
+            'commentaire' => ['required'],
+            'categorie' => ['required'],
             'email' => ['string', 'email', 'max:255'],
             'telephone' => ['required', 'integer', 'unique:users'],
             'password' => ['required', 'confirmed','min:4', 'max:4', Rules\Password::defaults()],
         ]);
-
-        $user = User::create([
-            'prenom' => $request->prenom,
-            'nom' => $request->nom,
-            'boutique' => $request->boutique,
-            'site' => $request->site,
-            'ecommerce' => $request->ecommerce,
-            'type' => $request->type,
-            'email' => $request->email,
-            'telephone' => $request->telephone,
-            'password' => Hash::make($request->password),
-        ]);
+        if($request->hasfile('image'))
+            {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $image = time().'.'.$extension;
+                $file->move('logo/',$image );
+            $user = User::create([
+                'prenom' => $request->prenom,
+                'nom' => $request->nom,
+                'boutique' => $request->boutique,
+                'site' => $request->site,
+                'type' => $request->type,
+                'email' => $request->email,
+                'commentaire' => $request->commentaire,
+                'categorie' => implode(',',$request->categorie),
+                'telephone' => $request->telephone,
+                'image'=> $image,
+                'password' => Hash::make($request->password),
+            ]);
             $user->attachRole('partenaire');
-        event(new Registered($user));
+            event(new Registered($user));
+        }
         return redirect()->back()->with("succescreate","Le partenaire a été bien creer");
     }
 //////////////creation commercant//////////////////////////////////////////
@@ -195,19 +243,27 @@ class superadminController extends Controller
             'telephone' => ['required', 'integer', 'unique:users'],
             'password' => ['required', 'confirmed','min:4', 'max:4', Rules\Password::defaults()],
         ]);
-
-        $user = User::create([
-            'prenom' => $request->prenom,
-            'nom' => $request->nom,
-            'boutique' => $request->boutique,
-            'site' => $request->site,
-            'type' => $request->type,
-            'email' => $request->email,
-            'telephone' => $request->telephone,
-            'password' => Hash::make($request->password),
-        ]);
+        if($request->hasfile('image'))
+            {
+                $file = $request->file('image');
+                $extension = $file->getClientOriginalExtension();
+                $image = time().'.'.$extension;
+                $file->move('logo/',$image );
+            
+            $user = User::create([
+                'prenom' => $request->prenom,
+                'nom' => $request->nom,
+                'boutique' => $request->boutique,
+                'site' => $request->site,
+                'type' => $request->type,
+                'email' => $request->email,
+                'telephone' => $request->telephone,
+                'image'=> $image,
+                'password' => Hash::make($request->password),
+            ]);
             $user->attachRole('commercant');
-        event(new Registered($user));
+            event(new Registered($user));
+        }
         return redirect()->back()->with("succescreate","Le commercant a été bien creer");
     }
 
@@ -324,6 +380,41 @@ class superadminController extends Controller
         return back()->with("updatereussit","Mise a jour reussit!");
     }
 
+
+
+
+    ////////////// supprimer categorie//////////////////////////////////////////
+
+    public function ssupprimercategorie(categorie $ssuppcategorie)
+	{
+        $libelle=$ssuppcategorie->libelle;
+        $ssuppcategorie->delete();
+        return back()->with("successDelete","La categorie $libelle est supprimer avec succee");
+	}
+////////////// page editer categorie//////////////////////////////////////////
+
+    public function seditcategorie(categorie $scategorie)
+    {
+        $listecommande=enregistrercommande::get();
+        $listeversement=versement::get();
+        return view('superadmin.editercategorie', compact('scategorie','listecommande','listeversement'));
+    }
+////////////// MAJ categorie//////////////////////////////////////////
+
+    public function supdatecategorie(Request $request, categorie $scategorie)
+    {
+        $scategorie->update(
+        [
+            'libelle' => $request->libelle,
+            'description' => $request->description
+        ]);
+
+        return back()->with("updatereussit","Mise a jour reussit!");
+    }
+
+
+
+
 ////////////// supprimer partenaire//////////////////////////////////////////
 
 public function ssupprimerpartenaire(user $ssupppartenaire)
@@ -351,7 +442,6 @@ public function ssupprimerpartenaire(user $ssupppartenaire)
             'nom' => ['required', 'string','max:255'],
             'boutique' => ['required', 'string','max:255'],
             'site' => ['required', 'string','max:255'],
-            'ecommerce' => ['required', 'string','max:255'],
             'email' => ['required', 'email','max:255'],
             'type' => ['required', 'string','max:255'],
             'telephone' => ['required', 'integer'],            
@@ -364,7 +454,6 @@ public function ssupprimerpartenaire(user $ssupppartenaire)
             'nom' => $request->nom,
             'boutique' => $request->boutique,
             'site' => $request->site,
-            'ecommerce' => $request->ecommerce,
             'email' => $request->email,
             'type' => $request->type,
             'telephone' => $request->telephone,
@@ -421,5 +510,93 @@ public function ssupprimercommercant(user $ssuppcommercant)
         ]);
 
         return back()->with("updatereussit","Mise a jour reussit!");
+    }
+
+    ////////////// Activer/desactiver admin//////////////////////////////////////////
+
+    public function activeradmin(Request $request, user $activeradmin)
+    {
+        $nom=$activeradmin->nom." ".$activeradmin->prenom;
+        $activeradmin->update(
+        [
+            'valide' => 1
+        ]);
+        return back()->with("accessActiver","L'administrateur $nom a été activer avec success!");
+    }
+
+    public function desactiveradmin(Request $request, user $desactiveradmin)
+    {
+        $nom=$desactiveradmin->nom." ".$desactiveradmin->prenom;
+        $desactiveradmin->update(
+        [
+            'valide' => 0
+        ]);
+        return back()->with("accessDesactiver","L'administrateur $nom a été désactiver avec success!");
+    }
+
+    ////////////// Activer/desactiver commercant//////////////////////////////////////////
+
+    public function sactivercommercant(Request $request, user $sactivercommercant)
+    {
+        $nom=$sactivercommercant->nom." ".$sactivercommercant->prenom;
+        $sactivercommercant->update(
+        [
+            'valide' => 1
+        ]);
+        return back()->with("accessActiver","Le commercant $nom a été activer avec success!");
+    }
+
+    public function sdesactivecommercant(Request $request, user $sdesactivecommercant)
+    {
+        $nom=$sdesactivecommercant->nom." ".$sdesactivecommercant->prenom;
+        $sdesactivecommercant->update(
+        [
+            'valide' => 0
+        ]);
+        return back()->with("accessDesactiver","Le commercant $nom a été désactiver avec success!");
+    }
+
+    ////////////// Activer/desactiver partenaire//////////////////////////////////////////
+
+    public function sactiverpartenaire(Request $request, user $sactiverpartenaire)
+    {
+        $nom=$sactiverpartenaire->nom." ".$sactiverpartenaire->prenom;
+        $sactiverpartenaire->update(
+        [
+            'valide' => 1
+        ]);
+        return back()->with("accessActiver","Le partenaire $nom a été activer avec success!");
+    }
+
+    public function sdesactivepartenaire(Request $request, user $sdesactivepartenaire)
+    {
+        $nom=$sdesactivepartenaire->nom." ".$sdesactivepartenaire->prenom;
+        $sdesactivepartenaire->update(
+        [
+            'valide' => 0
+        ]);
+        return back()->with("accessDesactiver","Le partenaire $nom a été désactiver avec success!");
+    }
+
+    ////////////// Activer/desactiver client//////////////////////////////////////////
+
+    public function sactiverclient(Request $request, user $sactiverclient)
+    {
+        $nom=$sactiverclient->nom." ".$sactiverclient->prenom;
+        $sactiverclient->update(
+        [
+            'valide' => 1
+        ]);
+        return back()->with("accessActiver","Le client $nom a été activer avec success!");
+    }
+
+    public function sdesactiveclient(Request $request, user $sdesactiveclient)
+    {
+        $nom=$sdesactiveclient->nom." ".$sdesactiveclient->prenom;
+        $sdesactiveclient->update(
+        [
+            'valide' => 0
+        ]);
+        return back()->with("accessDesactiver","Le client $nom a été désactiver avec success!");
     }
 }

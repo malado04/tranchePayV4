@@ -237,10 +237,11 @@
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Numero</th>
+                                    <th scope="col">Profil</th>
                                     <th scope="col">Prenom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Telephone</th>
+                                    <th scope="col">Etat</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -248,10 +249,29 @@
                                 @foreach ($listeclient as $client)
                                 @if($client->type == 'client')
                                 <tr>
-                                    <th>{{$client->id}}</th>
+                                    <th>
+                                        <img src="{{asset ('logo/'.$client->image)}}" width="50px" height="50px" alt="logo">
+                                    </th>
                                     <th>{{$client->prenom}}</th>
                                     <th>{{$client->nom}}</th>
                                     <th>{{$client->telephone}}</th>
+                                    <th>
+                                        @if($client->valide == 0)
+                                            <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment activer cet client?'))
+                                            {getElementById('form-{{$client->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
+                                            <form id="form-{{$client->id}}"action="{{route('sactiverclient',['sactiverclient'=>$client->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @else
+                                            <a href="#" class="btn btn-success" style="width:40px" onclick="if(confirm('Voulez vous vraiment desactiver cet client?'))
+                                            {getElementById('form-{{$client->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
+                                            <form id="form-{{$client->id}}"action="{{route('sdesactiveclient',['sdesactiveclient'=>$client->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @endif
+                                    </th>
                                     <th>   
                                         <a class="btn btn-info" href="{{route('seditclient',['sclient'=>$client->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
                                         <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet administrateur?'))

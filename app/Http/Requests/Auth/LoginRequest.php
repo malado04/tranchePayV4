@@ -55,8 +55,8 @@ class LoginRequest extends FormRequest
         //         'email' => __('auth.failed'),
         //     ]);
         // }
-        $user = User::Where('telephone',$this->login)->first();
-        if(!$user || !Hash::check($this->password, $user->password))
+        $user = User::Where('telephone',$this->login)->first(); 
+        if(!$user || !Hash::check($this->password, $user->password) || !$user->valide==1)
         {
             RateLimiter::hit($this->throttleKey());
             throw ValidationException::withMessages([

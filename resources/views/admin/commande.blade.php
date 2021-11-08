@@ -22,10 +22,10 @@
     <link href="{{asset('css/moncss.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     
-    <link href="{{asset('css/bootstraptableau.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstraptableau.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     
 
 
@@ -98,7 +98,7 @@
             </li>
             
             <hr class="sidebar-divider">
-            <li class="nav-item jaune">
+            <li class="nav-item jaune jaunehover">
                 <a class="nav-link collapsed" href="{{ route('pagecommandead') }}" >
                     <span>Commande</span>
                 </a> 
@@ -210,7 +210,16 @@
             </div>
         </div>
     </div>
-<H1 class="h1transaction ">Listes des commmandes :</H1>
+    
+
+
+    <div class="row textealigner">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <H1>Listes des commandes </H1>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
 <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">

@@ -21,10 +21,10 @@
     <link href="{{asset('css/logo.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/moncss.css')}}" rel="stylesheet" type="text/css">
     
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/bootstraptableau.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     
 
 
@@ -83,7 +83,7 @@
             
             <hr class="sidebar-divider">
 
-            <li class="nav-item jaune">
+            <li class="nav-item jaune jaunehover">
                 <a class="nav-link collapsed" href="{{ route('pagefinancementad') }}" >
                     <span>Financement </span>
                 </a> 
@@ -211,7 +211,13 @@
     </div>
 
     <hr class="sidebar-divider">
-    <H1 class="h1transaction ">Listes des demande de financement</H1>
+    <div class="row textealigner">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <H1>Listes des demandes de financement </H1>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
                 <div class="row">
                     <div class="col-md-1"></div>
                     <div class="col-md-8">

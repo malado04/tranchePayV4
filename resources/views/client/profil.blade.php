@@ -251,13 +251,13 @@
             <div class="modal-content">
                 <div class="modal-body">Voulez vous vraiment quitter la session</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                                <button class="btn btn-primary ">OUI</button>
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
                         </x-dropdown-link>
                     </form>
                 </div>

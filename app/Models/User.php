@@ -24,9 +24,12 @@ class User extends Authenticatable
         'nom',
         'boutique',
         'site',
-        'ecommerce',
+        'valide',
         'email',
+        'image',
         'type',
+        'commentaire',
+        'categorie',
         'telephone',
         'password',
     ];
