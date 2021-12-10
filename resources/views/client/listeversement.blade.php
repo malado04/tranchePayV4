@@ -103,7 +103,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item " href="#"><i class="far fa-comment-alt"></i> SMS</a>
                         <a class="collapse-item " href="#"><i class="fas fa-envelope"></i> Email</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+                        <a class="collapse-item " href="https://wa.me/?text= Bonjour, j’aimerais vous inviter à rejoindre tranchepay+https%3A%2F%2Fwww.tranchepay.com&app_absent=0">
+                            <i class="fab fa-whatsapp"></i> Whatsapp
+                        </a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
                         <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
@@ -119,10 +121,14 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{route('aideclient')}}">Aide</a>
-                        <a class="collapse-item" href="#">Appeler le service client</a>
+                        <a class="collapse-item" href="tel:+221338238469" > Service client </a> 
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
         </ul>
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -140,7 +146,7 @@
                 @endphp
                 <!-- Calcul montant total verset du client et le motant total des commandes du client  -->
                 @foreach ($listecommandesclient as $commandes)
-                    @if(Auth::user()->telephone == $commandes->numclient)
+                    @if(Auth::user()->id == $commandes->client_id)
                         @php
                             $mtmontantverset = $mtmontantverset + $commandes->montantverset;
                             $mttoutcommmande = $mttoutcommmande + $commandes->montantpayer;
@@ -172,8 +178,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -215,7 +224,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($listecommandesclient as $commandes)
-                                @if(Auth::user()->telephone == $commandes->numclient)
+                                @if(Auth::user()->id == $commandes->client_id)
                                 <tr>
                                     <th>{{$commandes->id}}</th>
                                     <th>{{$commandes->created_at}}</th>

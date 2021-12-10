@@ -8,6 +8,7 @@ use App\Models\enregistrercommande;
 use App\Models\aide;
 use App\Models\versement;
 use App\Models\user;
+use App\Models\paydounya;
 use Hash;
 
 class CommercantController extends Controller
@@ -17,19 +18,20 @@ class CommercantController extends Controller
     {
         $listecommandesclient=enregistrercommande::get();
         $listeversement=versement::get();
-        return view('commercant.enregistrercommande',compact('listecommandesclient','listeversement'));
+        $listeclient=user::get();
+        return view('commercant.enregistrercommande',compact('listecommandesclient','listeversement','listeclient'));
     }
 
     public function creercommande(Request $Request)
     {
-        $data=enregistrercommande::create(	
+        enregistrercommande::create(	
             [
                 "nomproduit"=>$Request->nomproduit,
                 "prix"=>$Request->prix,
                 "montantverset"=>$Request->montantverset,
                 "adresselivraison"=>$Request->adresselivraison,
                 "nomclient"=>$Request->nomclient,
-                "numclient"=>$Request->numclient,
+                "client_id"=>$Request->client_id,
                 "delaipaye"=>$Request->delaipaye,
                 "montantpayer"=>$Request->montantpayer,
                 "user_id"=>Auth::user()->id
@@ -58,7 +60,8 @@ class CommercantController extends Controller
     {
         $listecommandesclient=enregistrercommande::get();
         $listeversement=versement::get();
-        return view('commercant.listecommande',compact('listecommandesclient','listeversement'));
+        $listeclient=user::get();
+        return view('commercant.listecommande',compact('listecommandesclient','listeversement','listeclient'));
     }
     
 
@@ -90,4 +93,14 @@ class CommercantController extends Controller
             return redirect()->back()->with("noncreate","Vous avez entré un mauvais mot de passe");
         }
     }
+
+    public function listeproduit ()
+    {
+        return view('paydounya.index');
+    }
+    public function ajoutproduit(Request $Request)
+    {
+        return view('paydounya.index');
+    }
+
 }

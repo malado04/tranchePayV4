@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Enregistrercommande extends Model
+class Enregistrercommande extends Model 
 {
     use HasFactory;
     protected $fillable = [
@@ -13,8 +13,7 @@ class Enregistrercommande extends Model
         'prix',
         'montantverset',
         'adresselivraison',
-        'nomclient',
-        'numclient',
+        'client_id',
         'delaipaye',
         'montantpayer',
         'user_id',

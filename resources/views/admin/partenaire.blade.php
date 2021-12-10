@@ -115,10 +115,14 @@
                         <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
+                       <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -166,8 +170,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -189,27 +196,6 @@
                 </nav>
                     
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">Voulez vous vraiment quitter la session</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                                <button class="btn btn-primary">OUI</button>
-                        </x-dropdown-link>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <hr class="sidebar-divider">
     <div class="row textealigner">
         <div class="col-md-3"></div>
@@ -220,23 +206,33 @@
                     <h6 > {{session()->get('successDelete')}}</h6>
                 </div>
             @endif
+            @if(session()->has("accessActiver"))
+                <div class="alert alert-success center" >
+                    <h6 > {{session()->get('accessActiver')}}</h6>
+                </div>
+            @endif
+            @if(session()->has("accessDesactiver"))
+                <div class="alert alert-danger center" >
+                    <h6 > {{session()->get('accessDesactiver')}}</h6>
+                </div>
+            @endif
             <a href="{{route('creerpartenairead')}}" class="h1transaction btn btn-warning">Creer un partenaire</a>
         </div>
         <div class="col-md-3"></div>
     </div>
                 <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Numero</th>
+                                    <th scope="col">Logo</th>
                                     <th scope="col">Prenom</th>
                                     <th scope="col">Nom</th>
                                     <th scope="col">Boutique</th>
                                     <th scope="col">Site</th>
-                                    <th scope="col">E-commerce</th>
                                     <th scope="col">Telephone</th>
+                                    <th scope="col">Etat</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -244,18 +240,36 @@
                                 @foreach ($listepartenaire as $partenaire)
                                 @if($partenaire->type == 'partenaire')
                                 <tr>
-                                    <th>{{$partenaire->id}}</th>
+                                    <th>
+                                        <img src="{{asset ('logo/'.$partenaire->image)}}" width="50px" height="50px" alt="logo">
+                                    </th>
                                     <th>{{$partenaire->prenom}}</th>
                                     <th>{{$partenaire->nom}}</th>
                                     <th>{{$partenaire->boutique}}</th>
                                     <th>{{$partenaire->site}}</th>
-                                    <th>{{$partenaire->ecommerce}}</th>
                                     <th>{{$partenaire->telephone}}</th>
+                                    <th>
+                                        @if($partenaire->valide == 0)
+                                            <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment activer cet partenaire?'))
+                                            {getElementById('forms-{{$partenaire->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
+                                            <form id="forms-{{$partenaire->id}}"action="{{route('activerpartenaire',['activerpartenaire'=>$partenaire->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @else
+                                            <a href="#" class="btn btn-success" style="width:40px" onclick="if(confirm('Voulez vous vraiment desactiver cet partenaire?'))
+                                            {getElementById('formd-{{$partenaire->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
+                                            <form id="formd-{{$partenaire->id}}"action="{{route('desactivepartenaire',['desactivepartenaire'=>$partenaire->id])}}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="_method" value="put">
+                                            </form>
+                                        @endif
+                                    </th>
                                     <th>   
                                         <a class="btn btn-info" href="{{route('editpartenaire',['partenaire'=>$partenaire->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
                                         <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet partenaire?'))
-                                        {getElementById('form-{{$partenaire->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
-                                        <form id="form-{{$partenaire->id}}"action="{{route('supprimerpartenaire',['supppartenaire'=>$partenaire->id])}}" method="post">
+                                        {getElementById('forms-{{$partenaire->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
+                                        <form id="forms-{{$partenaire->id}}"action="{{route('supprimerpartenaire',['supppartenaire'=>$partenaire->id])}}" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="delete">
                                         </form>
@@ -266,7 +280,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-2"></div>
+                    <div class="col-md-1"></div>
                 </div>
 
         
@@ -275,7 +289,26 @@
 
 
 
-    
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">Voulez vous vraiment quitter la session</div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
+                        </x-dropdown-link>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript-->
 
     <script src="{{asset ('template/vendor/jquery/jquery.min.js')}}"></script>

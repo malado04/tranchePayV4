@@ -63,6 +63,12 @@
                 </a> 
             </li>
             <hr class="sidebar-divider">
+            <li class="nav-item jaune jaunehover">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
+                </a> 
+            </li>
+            <hr class="sidebar-divider">
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
                     <span>Categorie </span>
@@ -125,10 +131,14 @@
                         <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
+                       <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -176,8 +186,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -212,10 +225,11 @@
                     <div class="row bg-white" > 
                         <div class="col-md-4"></div>
                         <div class="col-md-4">
-                            <form control="" class="form-group" method="post" action="{{route('creationcategorie')}}">
-                            @csrf
-                            <input type="text" name="libelle" class="form-control input" placeholder="Libbelle" required="required">
-                            <textarea name="description" id="description" cols="10" rows="5" class="form-control input" placeholder="La description" required="required"></textarea>
+                            <form control="" class="form-group" method="post" action="{{route('creationcategorie')}}" enctype="multipart/form-data">
+                                @csrf
+                                    <input type="file" name="icon" class="form-control input" required="required">
+                                    <input type="text" name="libelle" class="form-control input" placeholder="Libbelle" required="required">
+                                    <textarea name="description" id="description" cols="10" rows="5" class="form-control input" placeholder="La description" required="required"></textarea>
                         </div>
                         <div class="col-md-4"></div>
                     </div>

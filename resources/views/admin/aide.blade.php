@@ -115,10 +115,14 @@
                         <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
+                       <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -142,7 +146,7 @@
                                 $mttpaye = $mttpaye + $commandes->montantpayer;
                                 $mt1versment = $mt1versment + $commandes->montantverset;
                             @endphp
-                    @endforeach
+                    @endforeach      
                     <!-- Calcul montant total des versement  -->
                     @foreach ($listeversement as $versement)
                             @php
@@ -166,8 +170,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -186,28 +193,7 @@
 
                     </ul>
 
-                </nav>                    
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">Voulez vous vraiment quitter la session</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                                <button class="btn btn-primary">OUI</button>
-                        </x-dropdown-link>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+                </nav>                   
 
     <hr class="sidebar-divider">
     <div class="row textealigner">
@@ -254,7 +240,26 @@
 
 
 
-    
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">Voulez vous vraiment quitter la session</div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
+                        </x-dropdown-link>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript-->
 
     <script src="{{asset ('template/vendor/jquery/jquery.min.js')}}"></script>

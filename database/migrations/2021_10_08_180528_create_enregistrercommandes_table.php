@@ -20,7 +20,7 @@ class CreateEnregistrercommandesTable extends Migration
             $table->integer('montantverset');
             $table->string('adresselivraison')->nullable();
             $table->string('nomclient');
-            $table->integer('numclient');
+            $table->integer('client_id');
             $table->dateTime('delaipaye');
             $table->integer('montantpayer');
             $table->foreignId("user_id")->constrained("users");

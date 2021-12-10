@@ -20,9 +20,10 @@
     <!-- Custom styles for this template-->
     <link href="{{asset('css/logo.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('css/moncss.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link rel=”stylesheet” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css”>
     
+    <link href="{{asset('css/bootstraptableau.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     
 
@@ -88,13 +89,18 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item " href="#"><i class="far fa-comment-alt"></i> SMS</a>
                         <a class="collapse-item " href="#"><i class="fas fa-envelope"></i> Email</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+                        <a class="collapse-item " href="https://wa.me/?text= Bonjour, j’aimerais vous inviter à rejoindre tranchepay+https%3A%2F%2Fwww.tranchepay.com&app_absent=0"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
                         <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+            
         </ul>
         <!-- End of Sidebar -->
 
@@ -137,8 +143,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -159,6 +168,67 @@
 
                 </nav>
                 <!-- End of Topbar -->
+                <hr class="sidebar-divider">
+            <div class="container">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">siidi va l'ecole</div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">merder </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">OUZINTO</div>
+                </div>
+            </div>
+    <!-- <div class="row textealigner">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <H1>Listes des Commandes</H1>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Quantite</th>
+                        <th scope="col">Prix U</th>
+                        <th scope="col">Prix T</th>
+                        <th scope="col">Nom client</th>
+                        <th scope="col">CNI client</th>
+                        <th scope="col">adresse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($listepayment as $payment)
+                    <tr>
+                        <th>{{$payment->name}}</th>
+                        <th>{{$payment->quantity}}</th>
+                        <th>{{$payment->unit_price}}</th>
+                        <th>{{$payment->total_price}}</th>
+                        <th>{{$payment->nomc}}</th>
+                        <th>{{$payment->client_cni}}</th>
+                        <th>{{$payment->adresse}}</th>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-1"></div>
+    </div> -->
+
+
+
 
 
     <!-- Logout Modal-->
@@ -168,24 +238,19 @@
             <div class="modal-content">
                 <div class="modal-body">Voulez vous vraiment quitter la session</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                                <button class="btn btn-primary">OUI</button>
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
                         </x-dropdown-link>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-        
-    </div>
-
-
     <!-- Bootstrap core JavaScript-->
 
     <script src="{{asset ('template/vendor/jquery/jquery.min.js')}}"></script>
@@ -200,9 +265,14 @@
     <!-- Page level plugins -->
     <script src="{{asset ('template/vendor/chart.js/Chart.min.js')}}"></script>
 
-    <!-- Page level custom scripts -->
-    <!-- <script src="{{asset ('template/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset ('template/js/demo/chart-pie-demo.js')}}"></script> -->
+    <script src="{{asset ('js/jquery-3.5.1.js')}}"></script>
+    <script src="{{asset ('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset ('js/dataTables.bootstrap5.min.js')}}"></script>
+    <script>
+        $(document).ready(function() {
+        $('#example').DataTable();
+        } );
+    </script>
 
 </body>
 

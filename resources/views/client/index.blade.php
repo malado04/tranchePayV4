@@ -102,7 +102,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item " href="#"><i class="far fa-comment-alt"></i> SMS</a>
                         <a class="collapse-item " href="#"><i class="fas fa-envelope"></i> Email</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+                        <a class="collapse-item " href="https://wa.me/?text= Bonjour, j’aimerais vous inviter à rejoindre tranchepay+https%3A%2F%2Fwww.tranchepay.com&app_absent=0">
+                            <i class="fab fa-whatsapp"></i> Whatsapp
+                        </a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
                         <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
@@ -118,10 +120,14 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{route('aideclient')}}">Aide</a>
-                        <a class="collapse-item" href="#">Appeler le service client</a>
+                        <a class="collapse-item" href="tel:+221338238469" > Service client </a> 
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
         </ul>
         <!-- End of Sidebar -->
 
@@ -141,7 +147,7 @@
                 @endphp
                 <!-- Calcul montant total verset du client et le motant total des commandes du client  -->
                 @foreach ($listecommandesclient as $commandes)
-                    @if(Auth::user()->telephone == $commandes->numclient)
+                    @if(Auth::user()->id == $commandes->client_id)
                         @php
                             $mtmontantverset = $mtmontantverset + $commandes->montantverset;
                             $mttoutcommmande = $mttoutcommmande + $commandes->montantpayer;
@@ -173,8 +179,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -196,6 +205,31 @@
                 </nav>
                     
 
+
+            <hr class="sidebar-divider">
+            <div class="row textealigner">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <H1>Listes des categories</H1>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
+            @foreach ($listecategorie as $categorie)
+            <a href="{{route('listepartenaire',['categorie'=>$categorie->id])}}" > 
+                <div style="display: inline-flex;width:49% ;">
+                    <div style ="height:100%; width:100% ;  margin:10px; border: 5px solid silver; text-align:center; background-color: rgb(0, 0, 0);" >
+                        <span  class="text-center listecategorie " > {{$categorie->libelle}} </span>
+                        <img src="{{asset ('icon/'.$categorie->icon)}}" width="100%" height="250px">
+                    </div> 
+                </div>  
+            <a>         
+            @endforeach
+    </div>   
+
+
+
+
+
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -216,85 +250,6 @@
             </div>
         </div>
     </div>
-
-    <hr class="sidebar-divider">
-    <H1 class="h1transaction ">Listes des parteneaires :</H1>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <table id="example" class="table table-striped" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th scope="col">Entite</th>
-                            <th scope="col">Telephone</th>
-                            <th scope="col">type</th>
-                            <th scope="col">Visiter</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($listeboutique as $boutiques)
-                        @if($boutiques->boutique == "" && $boutiques->site != "")
-                        <tr>
-                            <th>{{$boutiques->ecommerce}}</th>
-                            <th>{{$boutiques->telephone}}</th>
-                            <th>Site</th>
-                            <th> 
-                                <a class="btn btn-warning " href="{{$boutiques->ecommerce}}" > 
-                                    Visiter 
-                                <a>
-                            </th>
-                        </tr>
-                        @endif
-                        @endforeach
-                        
-                        @foreach ($listeboutique as $boutiques)
-                        @if($boutiques->boutique != "" && $boutiques->site != "")
-                        <tr>
-                            <th>{{$boutiques->boutique}}</th>
-                            <th>{{$boutiques->telephone}}</th>
-                            <th>Boutique/Site</th>
-                            <th> 
-                                <a class="btn btn-warning " href="{{$boutiques->ecommerce}}" > 
-                                    Visiter 
-                                <a>
-                            </th>
-                        </tr>
-                        @endif
-                        @endforeach
-                        
-                        @foreach ($listeboutique as $boutiques)
-                        @if($boutiques->boutique != "" && $boutiques->site == "")
-                        <tr>
-                            <th>{{$boutiques->boutique}}</th>
-                            <th>{{$boutiques->telephone}}</th>
-                            <th>Boutique</th>
-                            <th> 
-                                <a class="btn btn-warning " href="{{$boutiques->ecommerce}}" > 
-                                    Visiter 
-                                <a>
-                            </th>
-                        </tr>
-                        @endif
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
     <!-- Bootstrap core JavaScript-->
 
     <script src="{{asset ('template/vendor/jquery/jquery.min.js')}}"></script>

@@ -21,7 +21,33 @@
     <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{asset('css/moncss.css')}}">
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
-
+    <script type="text/javascript">
+            function categorie_id()
+            {
+                var tableau = [];
+                var table = [];
+                var i=0;
+                $.each($("input[name='categorie[]']:checked"), function() {
+                    tableau.push($(this).val());
+                });
+                
+                var long=tableau.length;
+                <?php
+                foreach ($listecategorie as $categorie) 
+                {?>
+                    for( i = 0 ; i < long ; i++)
+                    {
+                        if(tableau[i] == '<?php echo $categorie->libelle ?>'  )
+                        {
+                            table.push(<?php echo $categorie->id ?>);
+                        }
+                    }
+                    
+                <?php } ?>
+                document.getElementById("id_categorie").value =  table.join(", ");
+            
+            }
+    </script>
     
 
 
@@ -63,7 +89,12 @@
                     <span>Client </span>
                 </a> 
             </li>
-
+            <hr class="sidebar-divider">
+            <li class="nav-item jaune">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
+                </a> 
+            </li>
             <hr class="sidebar-divider">
             <li class="nav-item jaune jaunehover">
                 <a class="nav-link collapsed" href="{{ route('pagepartenaire') }}" >
@@ -120,10 +151,14 @@
                         <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
+                       <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -171,8 +206,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -214,7 +252,7 @@
                                 <form control="" class="form-group" method="post" action="{{route('creationpartenaire')}}" enctype="multipart/form-data">
                                 @csrf
                                     
-                                    <input type="file" name="image" class="form-control input" >
+                                    <input type="file" name="image" class="form-control input" required="required">
                                 
                                     <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom" required="required">
                                 
@@ -227,8 +265,10 @@
                                     <input type="text" name="commentaire" class="form-control input" placeholder="La description" required="required">
 
                                     @foreach ($listecategorie as $categorie)
-                                        <input type="checkbox" name="categorie[]" value="{{$categorie->libelle}}">{{$categorie->libelle}}
+                                    <input type="checkbox" id="categorieid" name="categorie[]" value="{{$categorie->libelle}}">{{$categorie->libelle}}
                                     @endforeach
+
+                                    <input type="text" name="id_categorie" id="id_categorie" style="display:none;" >
                                 
                                     <input type="number" name="telephone" class="form-control input" placeholder="telephone" required="required">
                                 
@@ -240,7 +280,7 @@
 
                                     <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation code PIN partenaire"/>
                                     <div align="center" >
-                                        <input type="submit" name="VALIDER" value="CREER" class="btn btnduform">
+                                        <input onclick="categorie_id()" type="submit" name="VALIDER" value="CREER" class="btn btnduform">
                                     </div> 
 
                                 </form>
@@ -249,7 +289,7 @@
                     </div>
                 </div>
                     
-
+ 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">

@@ -63,7 +63,12 @@
                     <span>Client </span>
                 </a> 
             </li>
-
+            <hr class="sidebar-divider">
+            <li class="nav-item jaune">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
+                </a> 
+            </li>
             <hr class="sidebar-divider">
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="{{ route('pagepartenaire') }}" >
@@ -120,10 +125,14 @@
                         <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
+                       <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -171,8 +180,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -211,25 +223,21 @@
                                 @endforeach
                                 @endif
                                 <h2 class="texte">Creer client</h2>
-                                <form control="" class="form-group" method="post" action="{{route('creationclient')}}"enctype="multipart/form-data">
+                                <form control="" class="form-group" method="post" action="{{route('creationclient')}}" enctype="multipart/form-data">
                                 @csrf
-                                            <input type="file" name="image" class="form-control input" >
-                                    <!-- <div class="user"> -->
-                                        <!-- <div .input-box> -->
-                                            <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom du client" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="nom" class="form-control input" placeholder="Nom du client" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="number" name="telephone" class="form-control input" placeholder="telephone du client" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="type" value="client" style="display:none;" >
+                                    <input type="file" name="image" class="form-control input" required="required">
+                        
+                                    <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom du client" required="required">
+                            
+                                    <input type="text" name="nom" class="form-control input" placeholder="Nom du client" required="required">
+                            
+                                    <input type="number" name="telephone" class="form-control input" placeholder="telephone du client" required="required">
+                            
+                                    <input type="text" name="type" value="client" style="display:none;" >
 
-                                            <input id="password" class="form-control input" type="password" name="password" required="required" placeholder="Code PIN du client"/>
+                                    <input id="password" class="form-control input" type="password" name="password" required="required" placeholder="Code PIN du client"/>
 
-                                            <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation code PIN client"/>
+                                    <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation code PIN client"/>
                                     <div align="center" >
                                         <input type="submit" name="VALIDER" value="CREER" class="btn btnduform">
                                     </div> 

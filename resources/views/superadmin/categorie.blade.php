@@ -55,7 +55,7 @@
             </li>
 
             <hr class="sidebar-divider">
-            <li class="nav-item jaune jaunehover">
+            <li class="nav-item jaune ">
                 <a class="nav-link collapsed" href="{{ route('pageadmin') }}" >
                     <span>Admin </span>
                 </a> 
@@ -64,6 +64,13 @@
             <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="{{ route('pageclient') }}" >
                     <span>Client </span>
+                </a> 
+            </li>
+
+            <hr class="sidebar-divider">
+            <li class="nav-item jaune jaunehover">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
                 </a> 
             </li>
 
@@ -127,6 +134,10 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -174,8 +185,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -249,7 +263,7 @@
                         <table id="example" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th scope="col">Numero</th>
+                                    <th scope="col">Icon</th>
                                     <th scope="col">Libelle</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -257,7 +271,9 @@
                             <tbody>
                                 @foreach ($listecategorie as $categorie)
                                 <tr>
-                                    <th>{{$categorie->id}}</th>
+                                    <th>
+                                        <img src="{{asset ('icon/'.$categorie->icon)}}" width="50px" height="50px" alt="logo">
+                                    </th>
                                     <th>{{$categorie->libelle}}</th>
                                     <th>
                                         <a class="btn btn-info" href="{{route('seditcategorie',['scategorie'=>$categorie->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>

@@ -42,8 +42,8 @@
             document.getElementById("montantpayer").value = montantpayer;
             document.getElementById("montantpayerinput").value = montantpayer;
         }
+        
     </script>
-
     
 
 
@@ -109,19 +109,21 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item " href="#"><i class="far fa-comment-alt"></i> SMS</a>
                         <a class="collapse-item " href="#"><i class="fas fa-envelope"></i> Email</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
+                        <a class="collapse-item " href="https://wa.me/?text= Bonjour, j’aimerais vous inviter à rejoindre tranchepay+https%3A%2F%2Fwww.tranchepay.com&app_absent=0">
+                            <i class="fab fa-whatsapp"></i> Whatsapp
+                        </a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
                         <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+            
         </ul>
-
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -163,8 +165,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -207,10 +212,13 @@
                             @csrf
                                 <input type="text"  name="nomproduit" class="form-control input" placeholder="Nom du produit" required="required">
                                 <input type="text" name="nomclient" class="form-control input" placeholder="Nom complet client" required="required">
-                                <input type="number" name="numclient" class="form-control input" placeholder="Numéro téléphone (Numéro du client TranchePay)" required="required">
+                                <input type="number" id="client_id" name="client_id" class="form-control input" placeholder="Numéro téléphone (Numéro du client TranchePay)" required="required">
+                                @php
+                                    
+                                @endphp
                                 <input type="text" name="adresselivraison" class="form-control input" placeholder="Adresse de livraison (Facultatif)">
     
-                        </div>
+                        </div> 
                         <div class="col-md-5">
                                 <input type="number" name="prix" class="form-control input" placeholder="Prix du produit" id="prix" oninput="calcul()" required="required">
                                 <input type="number" name="montantverset" class="form-control input" placeholder="Montant premier versement" required="required">
@@ -232,7 +240,7 @@
                         </div>
                         <div class="col-md-12">
                             <div align="center" >
-                                <input type="submit" name="VALIDER" value="ENREGISTRER" class="btn btnduform">
+                                <input  onclick="clientid()"  type="submit"name="VALIDER" value="ENREGISTRER" class="btn btnduform">
                             </div>
                         </div>
 
@@ -250,24 +258,19 @@
             <div class="modal-content">
                 <div class="modal-body">Voulez vous vraiment quitter la session</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                                <button class="btn btn-primary ">OUI</button>
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
                         </x-dropdown-link>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-
-    
-
-
-
 
 
     <!-- Bootstrap core JavaScript-->
@@ -287,7 +290,28 @@
     <!-- Page level custom scripts -->
     <script src="{{asset ('template/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset ('template/js/demo/chart-pie-demo.js')}}"></script>
-
+    
+            <script type="text/javascript">
+                function clientid()
+                {
+                    var client='client';
+                    var test='0';
+                    var client_id = Number(document.getElementById("client_id").value);
+                    <?php foreach ($listeclient as $client) { ?> 
+                    if( client_id == <?php echo $client->telephone;?> && client == <?php echo $client->type;?> )
+                    {
+                        document.getElementById("client_id").value = <?php echo $client->id;?>;
+                        test='1';
+                    }
+                    <?php } ?>
+                    if (test == '0')
+                    {
+                        alert('Ce numero n\'est pas du type client');
+                        document.getElementById("client_id").value = '';
+                    }
+                }
+            </script>
+    
 </body>
 
 </html>

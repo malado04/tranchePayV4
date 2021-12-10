@@ -67,6 +67,13 @@
             </li>
 
             <hr class="sidebar-divider">
+            <li class="nav-item jaune">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
+                </a> 
+            </li>
+
+            <hr class="sidebar-divider">
             <li class="nav-item jaun">
                 <a class="nav-link collapsed" href="{{ route('pagepartenaire') }}" >
                     <span>Partenaire</span>
@@ -126,6 +133,10 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -173,8 +184,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -258,15 +272,15 @@
                                     <th>
                                         @if($client->valide == 0)
                                             <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment activer cet client?'))
-                                            {getElementById('form-{{$client->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
-                                            <form id="form-{{$client->id}}"action="{{route('sactiverclient',['sactiverclient'=>$client->id])}}" method="post">
+                                            {getElementById('forma-{{$client->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
+                                            <form id="forma-{{$client->id}}"action="{{route('sactiverclient',['sactiverclient'=>$client->id])}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="put">
                                             </form>
                                         @else
                                             <a href="#" class="btn btn-success" style="width:40px" onclick="if(confirm('Voulez vous vraiment desactiver cet client?'))
-                                            {getElementById('form-{{$client->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
-                                            <form id="form-{{$client->id}}"action="{{route('sdesactiveclient',['sdesactiveclient'=>$client->id])}}" method="post">
+                                            {getElementById('formd-{{$client->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
+                                            <form id="formd-{{$client->id}}"action="{{route('sdesactiveclient',['sdesactiveclient'=>$client->id])}}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="_method" value="put">
                                             </form>
@@ -275,8 +289,8 @@
                                     <th>   
                                         <a class="btn btn-info" href="{{route('seditclient',['sclient'=>$client->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
                                         <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet administrateur?'))
-                                        {getElementById('form-{{$client->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
-                                        <form id="form-{{$client->id}}"action="{{route('ssupprimerclient',['ssuppclient'=>$client->id])}}" method="post">
+                                        {getElementById('forms-{{$client->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
+                                        <form id="forms-{{$client->id}}"action="{{route('ssupprimerclient',['ssuppclient'=>$client->id])}}" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="delete">
                                         </form>

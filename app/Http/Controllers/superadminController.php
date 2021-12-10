@@ -90,13 +90,23 @@ class superadminController extends Controller
     }
     public function creationcategorie(Request $Request)
     {
-        categorie::create(	
-        [
-            "libelle"=>$Request->libelle,
-            "description"=>$Request->description
+        $Request->validate([
+            'icon' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        
-        return back()->with("succescreate","La description est bien enregistré!!");
+        if($Request->hasfile('icon'))
+            {
+                $file = $Request->file('icon');
+                $extension = $file->getClientOriginalExtension();
+                $icon = time().'.'.$extension;
+                $file->move('icon/',$icon );
+                categorie::create(	
+                [
+                    "libelle"=>$Request->libelle,
+                    'icon' => $icon,
+                    "description"=>$Request->description
+                ]);
+            }
+        return back()->with("succescreate","La categorie est bien enregistré!!");
     }
     public function creeradmin()
     {
@@ -112,6 +122,7 @@ class superadminController extends Controller
             'nom' => ['required', 'string','max:255'],
             'type' => ['required', 'string','max:255'],
             'telephone' => ['required', 'integer', 'unique:users'],            
+            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => ['required', 'confirmed', 'min:4', 'max:4', Rules\Password::defaults()],
 
         ]);
@@ -151,6 +162,7 @@ class superadminController extends Controller
             'nom' => ['required', 'string','max:255'],
             'type' => ['required', 'string','max:255'],
             'telephone' => ['required', 'integer', 'unique:users'],
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => ['required', 'confirmed','integer','min:4', 'max:9999', Rules\Password::defaults()],
         ]);
         if($request->hasfile('image'))
@@ -196,6 +208,7 @@ class superadminController extends Controller
             'categorie' => ['required'],
             'email' => ['string', 'email', 'max:255'],
             'telephone' => ['required', 'integer', 'unique:users'],
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => ['required', 'confirmed','min:4', 'max:4', Rules\Password::defaults()],
         ]);
         if($request->hasfile('image'))
@@ -212,7 +225,7 @@ class superadminController extends Controller
                 'type' => $request->type,
                 'email' => $request->email,
                 'commentaire' => $request->commentaire,
-                'categorie' => implode(',',$request->categorie),
+                'categorie' => $request->id_categorie, 
                 'telephone' => $request->telephone,
                 'image'=> $image,
                 'password' => Hash::make($request->password),
@@ -241,6 +254,7 @@ class superadminController extends Controller
             'type' => ['string', 'max:255'],
             'email' => ['string', 'email', 'max:255'],
             'telephone' => ['required', 'integer', 'unique:users'],
+            'image' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
             'password' => ['required', 'confirmed','min:4', 'max:4', Rules\Password::defaults()],
         ]);
         if($request->hasfile('image'))
@@ -378,7 +392,7 @@ class superadminController extends Controller
         ]);
 
         return back()->with("updatereussit","Mise a jour reussit!");
-    }
+    } 
 
 
 
@@ -403,11 +417,19 @@ class superadminController extends Controller
 
     public function supdatecategorie(Request $request, categorie $scategorie)
     {
-        $scategorie->update(
-        [
-            'libelle' => $request->libelle,
-            'description' => $request->description
-        ]);
+        if($request->hasfile('icon'))
+        {
+            $file = $request->file('icon');
+            $extension = $file->getClientOriginalExtension();
+            $icon = time().'.'.$extension;
+            $file->move('icon/',$icon );
+            $scategorie->update(
+                [
+                    'libelle' => $request->libelle,
+                    'icon' => $icon,
+                    'description' => $request->description
+                ]);
+        }
 
         return back()->with("updatereussit","Mise a jour reussit!");
     }

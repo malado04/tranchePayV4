@@ -8,16 +8,24 @@ use App\Models\Demandefinancement;
 use App\Models\enregistrercommande;
 use App\Models\versement;
 use App\Models\aide;
+use App\Models\user;
+use App\Models\categorie;
 use Hash;
 
 class ClientController extends Controller
 {
 
+    public function facturepayement()
+    {
+        $invoice = new \Paydunya\Checkout\CheckoutInvoice();
+        return view('client.facturepayement',compact('invoice'));
+    }
     public function mescommandes()
     {
+        $invoice = new \Paydunya\Checkout\CheckoutInvoice();
         $listecommandesclient=enregistrercommande::get();
         $listeversement=versement::get();
-        return view('client.mescommandes',compact('listecommandesclient','listeversement'));
+        return view('client.mescommandes',compact('listecommandesclient','listeversement','invoice'));
     }
 
     public function demandefinancement()
@@ -97,15 +105,53 @@ class ClientController extends Controller
 
     public function versement(Request $Request)
     {
-        versement::create(	
-        [
-            "verset"=>$Request->verset,
-            "enregistrercommande_id"=>$Request->enregistrercommande_id,
-            "user_id"=>Auth::user()->id
-        ]);
+        $invoice = new \Paydunya\Checkout\CheckoutInvoice();
+        $invoice->addItem("Chaussures Croco", 3, 10000, 30000, "Chaussures faites en peau de crocrodile authentique qui chasse la pauvreté");
+        $invoice->addItem("Chemise Glacée", 1, 5000, 5000);
+        $invoice->setDescription("Optional Description");
+        $invoice->setTotalAmount(42300);
+        $invoice->addChannel('wari');
+        $invoice->addChannel('card');
+        $invoice->addChannels(['card', 'jonijoni-senegal', 'orange-money-senegal']);
+        if($invoice->create()) {
+            header("Location: ".$invoice->getInvoiceUrl());
+        }else{
+            echo $invoice->response_text;
+        }
+        $token = $_GET['enregistrercommande_id'];
+
+        $invoice = new \Paydunya\Checkout\CheckoutInvoice();
+        if ($invoice->confirm($token)) 
+        {
+            echo $invoice->getStatus();
+            echo $invoice->getCustomerInfo('name');
+            echo $invoice->getCustomerInfo('email');
+            echo $invoice->getCustomerInfo('phone');
+            echo $invoice->getReceiptUrl();
+            echo $invoice->getCustomData("categorie");
+            echo $invoice->getCustomData("periode");
+            echo $invoice->getCustomData("numero_gagant");
+            echo $invoice->getCustomData("prix");
+            echo $invoice->getTotalAmount();
+        }
+        else
+        {
+            echo $invoice->getStatus();
+            echo $invoice->response_text;
+            echo $invoice->response_code;
+        }
+    }    
+    // public function versement(Request $Request)
+    // {
+    //     versement::create(	
+    //     [
+    //         "verset"=>$Request->verset,
+    //         "enregistrercommande_id"=>$Request->enregistrercommande_id,
+    //         "user_id"=>Auth::user()->id
+    //     ]);
         
-        return back()->with("succescreate","Votre versement a ete enregistrer");
-    }
+    //     return back()->with("succescreate","Votre versement a ete enregistrer");
+    // }
 
     
     public function formaideclient(Request $Request)
@@ -119,5 +165,12 @@ class ClientController extends Controller
         
         return back()->with("succescreate","Votre demande a ete bien prie en charge");
     }
-    
+    public function listepartenaire(categorie $categorie)
+	{
+        $listecommandesclient=enregistrercommande::get();
+        $listeversement=versement::get();
+        $listepartenaire=user::get();
+        $listecategorie=categorie::get();
+        return view('client.listepartenaire',compact('listepartenaire','categorie','listecommandesclient','listeversement','listecategorie'));
+	}
 }

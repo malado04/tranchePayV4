@@ -22,9 +22,35 @@
     
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="{{asset('css/moncss.css')}}">
-
+    <script type="text/javascript">
+            function categorie_id()
+            {
+                var tableau = [];
+                var table = [];
+                var i=0;
+                $.each($("input[name='categorie[]']:checked"), function() {
+                    tableau.push($(this).val());
+                });
+                
+                var long=tableau.length;
+                <?php
+                foreach ($listecategorie as $categorie) 
+                {?>
+                    for( i = 0 ; i < long ; i++)
+                    {
+                        if(tableau[i] == '<?php echo $categorie->libelle ?>'  )
+                        {
+                            table.push(<?php echo $categorie->id ?>);
+                        }
+                    }
+                    
+                <?php } ?>
+                document.getElementById("id_categorie").value =  table.join(", ");
+            
+            }
+    </script>
     
-
+ 
 
 </head>
 
@@ -58,7 +84,7 @@
             </li>
 
             <hr class="sidebar-divider">
-            <li class="nav-item jaune">
+            <li class="nav-item jaune jaunehover">
                 <a class="nav-link collapsed" href="{{ route('pagepartenairead') }}" >
                     <span>Partenaire</span>
                 </a> 
@@ -113,10 +139,14 @@
                         <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
+                       <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -164,8 +194,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -204,37 +237,38 @@
                                 @endforeach
                                 @endif
                                 <h2 class="texte">Creer partenaire</h2>
-                                <form control="" class="form-group" method="post" action="{{route('creationpartenairead')}}">
-                                @csrf
-                                    <!-- <div class="user"> -->
-                                        <!-- <div .input-box> -->
-                                            <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="nom" class="form-control input" placeholder="Nom" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="boutique" class="form-control input" value="Pas de boutique" placeholder="Nom de la boutique (Facultatif)" >
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="site" class="form-control input" placeholder="Site internet" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="text" name="ecommerce" class="form-control input" placeholder="E-commerce" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <input type="number" name="telephone" class="form-control input" placeholder="telephone" required="required">
-                                        <!-- </div>
-                                        <div .input-box> -->
-                                            <x-input id="email" class="form-control input" type="email" name="email"  placeholder="Adresse mail partenaire" required="required" />
+                                <form control="" class="form-group" name="formu" method="post" action="{{route('creationpartenairead')}}" enctype="multipart/form-data">
+                                @csrf 
+                                    
+                                    <input type="file" name="image" class="form-control input" required="required">
 
-                                            <input type="text" name="type" value="partenaire" style="display:none;" >
+                                    <input type="text" name="prenom" id="prenom" class="form-control input" placeholder="Prenom" required="required">
+                                
+                                    <input type="text" name="nom" class="form-control input" placeholder="Nom" required="required">
+                                
+                                    <input type="text" name="boutique" class="form-control input" value="Pas de boutique" placeholder="Nom de la boutique (Facultatif)" >
+                                
+                                    <input type="text" name="site" class="form-control input" placeholder="Site internet" required="required">
+                                
+                                    <input type="text" name="commentaire" class="form-control input" placeholder="Description" required="required">
+                                    
+                                    @foreach ($listecategorie as $categorie)
+                                    <input type="checkbox" id="categorieid" name="categorie[]" value="{{$categorie->libelle}}">{{$categorie->libelle}}
+                                    @endforeach
 
-                                            <input id="password" class="form-control input" type="password" name="password" required="required" placeholder="Code PIN partenaire"/>
+                                    <input type="text" name="id_categorie" id="id_categorie" style="display:none;" >
+                                
+                                    <input type="number" name="telephone" class="form-control input" placeholder="telephone" required="required">
+                                
+                                    <x-input id="email" class="form-control input" type="email" name="email"  placeholder="Adresse mail partenaire" required="required" />
 
-                                            <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation code PIN partenaire"/>
+                                    <input type="text" name="type" value="partenaire" style="display:none;" >
+
+                                    <input id="password" class="form-control input" type="password" name="password" required="required" placeholder="Code PIN partenaire"/>
+
+                                    <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation code PIN partenaire"/>
                                     <div align="center" >
-                                        <input type="submit" name="VALIDER" value="CREER" class="btn btnduform">
+                                        <input onclick="categorie_id()" type="submit" value="CREER" class="btn btnduform">
                                     </div> 
 
                                 </form>
@@ -242,7 +276,15 @@
                         </div>
                     </div>
                 </div>
-                    
+                <h5>Quel est votre langage de programmation préféré?</h5>
+    <p> 
+      <label><input type="checkbox" name="langage" value="javascript">JavaScript</label><br> 
+      <label><input type="checkbox" name="langage" value="python">Python</label><br>
+      <label><input type="checkbox" name="langage" value="php">PHP</label><br>
+      <label><input type="checkbox" name="langage" value="java">Java</label><br>
+      <label><input type="checkbox" name="langage" value="scala">Scala</label>
+    </p>
+    <input type="button" value="Récupérer la valeur">
 
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -251,13 +293,13 @@
             <div class="modal-content">
                 <div class="modal-body">Voulez vous vraiment quitter la session</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Annuler</button>
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-dropdown-link :href="route('logout')"
                                 onclick="event.preventDefault();
                                             this.closest('form').submit();">
-                                <button class="btn btn-primary ">OUI</button>
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
                         </x-dropdown-link>
                     </form>
                 </div>
@@ -283,7 +325,24 @@
     <!-- Page level custom scripts -->
     <script src="{{asset ('template/js/demo/chart-area-demo.js')}}"></script>
     <script src="{{asset ('template/js/demo/chart-pie-demo.js')}}"></script>
+    <!-- // function ajouter()
+        // {
+        //     var tableau=new Array();
+        //     tableau.push('Fourth item');
+        //     alert(tableau);
+        //     if (document.getElementsByName("categorie").checked == true)
+        //     {
+        //         alert('la case est cochée vvv');
+        //     alert(tableau);
+                
+        //     }
+        // } -->
 
+
+
+
+
+    
 </body>
 
 </html>

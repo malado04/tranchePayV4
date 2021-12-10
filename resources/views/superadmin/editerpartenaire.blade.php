@@ -63,6 +63,12 @@
                     <span>Client </span>
                 </a> 
             </li>
+            <hr class="sidebar-divider">
+            <li class="nav-item jaune">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
+                </a> 
+            </li>
 
             <hr class="sidebar-divider">
             <li class="nav-item jaune jaunehover">
@@ -120,10 +126,14 @@
                         <a class="collapse-item " href="#"><i class="fab fa-whatsapp"></i> Whatsapp</a>
                         <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
                         <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
+                       <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -171,8 +181,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -221,10 +234,9 @@
                                             <input type="text" name="nom" class="form-control input" placeholder="Nom du partenaire" value="{{$spartenaire->nom}}"required="required">
                                             <input type="text" name="boutique" class="form-control input" placeholder="Nom de la boutique" value="{{$spartenaire->boutique}}" value="Pas de boutique">
                                             <input type="text" name="site" class="form-control input" placeholder="Site internet" value="{{$spartenaire->site}}"required="required">
-                                            <input type="text" name="ecommerce" class="form-control input" placeholder="E-commerce" value="{{$spartenaire->ecommerce}}"required="required">
                                             <input type="email" name="email" class="form-control input"   placeholder="Adresse mail partenaire" value="{{$spartenaire->email}}" required="required" id="email"/>
                                             <input type="text" name="type" value="partenaire" style="display:none;" >
-                                            <input type="number" name="telephone" value="{{$spartenaire->telephone}}" style="display:none;" >
+                                            <input type="number" name="telephone" class="form-control input" placeholder="Telephone du partenaire" value="{{$spartenaire->telephone}}"required="required">
                                             <input id="password" class="form-control input" type="password" name="password" required="required" autocomplete="new-password" placeholder="Nouveau code PIN partenaire"/>
                                             <input id="password_confirmation" class="form-control input" type="password" name="password_confirmation" required="required" placeholder="Confirmation nouveau code PIN partenaire"/>
                                     <div align="center" >

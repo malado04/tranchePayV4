@@ -69,6 +69,13 @@
 
             <hr class="sidebar-divider">
             <li class="nav-item jaune">
+                <a class="nav-link collapsed" href="{{ route('pagecategorie') }}" >
+                    <span>Categorie </span>
+                </a> 
+            </li>
+
+            <hr class="sidebar-divider">
+            <li class="nav-item jaune">
                 <a class="nav-link collapsed" href="{{ route('pagepartenaire') }}" >
                     <span>Partenaire</span>
                 </a> 
@@ -127,6 +134,10 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
             
         </ul>
         <!-- End of Sidebar -->
@@ -174,8 +185,11 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->prenom }} {{ Auth::user()->nom }}</span>
-                                <img class="img-profile rounded-circle"
-                                    src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @if(Auth::user()->image=='')
+                                    <img class="img-profile rounded-circle" src="{{asset ('template/img/undraw_profile.svg')}}">
+                                @else
+                                    <img src="{{asset ('logo/'.Auth::user()->image)}}" class="img-profile rounded-circle">
+                                @endif
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -195,28 +209,7 @@
                     </ul>
 
                 </nav>
-                    
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">Voulez vous vraiment quitter la session</div>
-                <div class="modal-footer">
-                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                                <button class="btn btn-danger" style="width: 100px">OUI</button>
-                        </x-dropdown-link>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <hr class="sidebar-divider">
     <div class="row textealigner">
@@ -270,15 +263,15 @@
                                     <th>
                                     @if($admin->valide == 0)
                                         <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment activer cet administrateur?'))
-                                        {getElementById('form-{{$admin->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
-                                        <form id="form-{{$admin->id}}"action="{{route('activeradmin',['activeradmin'=>$admin->id])}}" method="post">
+                                        {getElementById('forma-{{$admin->id}}').submit()}"><i class="far fa-thumbs-down"></i></a>
+                                        <form id="forma-{{$admin->id}}"action="{{route('activeradmin',['activeradmin'=>$admin->id])}}" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="put">
                                         </form>
                                     @else
                                         <a href="#" class="btn btn-success" style="width:40px" onclick="if(confirm('Voulez vous vraiment desactiver cet administrateur?'))
-                                        {getElementById('form-{{$admin->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
-                                        <form id="form-{{$admin->id}}"action="{{route('desactiveradmin',['desactiveradmin'=>$admin->id])}}" method="post">
+                                        {getElementById('formd-{{$admin->id}}').submit()}"><i class="far fa-thumbs-up"></i></a>
+                                        <form id="formd-{{$admin->id}}"action="{{route('desactiveradmin',['desactiveradmin'=>$admin->id])}}" method="post">
                                             @csrf
                                             <input type="hidden" name="_method" value="put">
                                         </form>
@@ -288,10 +281,10 @@
                                         <a class="btn btn-info" href="{{route('editadmin',['admin'=>$admin->id])}}" style="width:40px"> <i class="fas fa-user-edit"></i>  <a>
 
                                         <a href="#" class="btn btn-danger" style="width:40px" onclick="if(confirm('Voulez vous vraiment supprimer cet administrateur?'))
-                                        {getElementById('form-{{$admin->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
-                                        <form id="form-{{$admin->id}}"action="{{route('supprimeradmin',['suppadmin'=>$admin->id])}}" method="post">
+                                        {getElementById('forms-{{$admin->id}}').submit()}"><i class="fas fa-trash-alt"></i></a>
+                                        <form id="forms-{{$admin->id}}"action="{{route('supprimeradmin',['suppadmin'=>$admin->id])}}" method="post">
                                             @csrf
-                                            <input type="hidden" name="_method" value="delete">
+                                            <input type="hidden" name="_method" value="delete"> 
                                         </form>
                                     </th>
                                 </tr>
@@ -303,7 +296,26 @@
                     <div class="col-md-3"></div>
                 </div>
 
-        
+     <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">Voulez vous vraiment quitter la session</div>
+                <div class="modal-footer">
+                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                                <button class="btn btn-danger" style="width: 100px">OUI</button>
+                        </x-dropdown-link>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>   
 
 
 
