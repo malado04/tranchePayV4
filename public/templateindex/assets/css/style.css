@@ -12,7 +12,15 @@ body {
   font-family: "Open Sans", sans-serif;
   color: #444444;
 }
-
+    #text-tranche{
+      color: #66ACAE;
+    }
+    #bg-tranche{
+      background-color: #66ACAE;
+    }
+    #logo{
+      width: 100%;
+    }
 a {
   color: #1acc8d;
   text-decoration: none;
@@ -357,7 +365,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #hero:before {
   content: "";
-  background: rgba(2, 5, 161, 0.91);
+  background: rgba(102,172,174,1);
   position: absolute;
   bottom: 0;
   top: 0;
@@ -430,6 +438,97 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (max-width: 575px) {
   #hero .hero-img img {
+    width: 80%;
+  }
+}
+
+/*--------------------------------------------------------------
+# hero1 Section
+--------------------------------------------------------------*/
+#hero1 {
+  width: 100%;
+  background: url("../img/hero1-bg.jpg");
+  position: relative;
+  padding: 120px 0 0 0;
+}
+.option{
+  background: rgb(218,254,255);
+}
+#hero1:before {
+  content: "";
+  background: rgb(218,254,255);
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+#hero1 h1 {
+  margin: 0 0 20px 0;
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 56px;
+  color: rgba(255, 255, 255, 0.8);
+}
+#hero1 h1 span {
+  color: #fff;
+  border-bottom: 4px solid #1acc8d;
+}
+#hero1 h2 {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+  font-size: 24px;
+}
+#hero1 .btn-get-started {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 1px;
+  display: inline-block;
+  padding: 10px 30px;
+  border-radius: 50px;
+  transition: 0.5s;
+  color: #fff;
+  background: #1acc8d;
+}
+#hero1 .btn-get-started:hover {
+  background: #17b57d;
+}
+#hero1 .animated {
+  animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+@media (min-width: 1024px) {
+  #hero1 {
+    background-attachment: fixed;
+  }
+}
+@media (max-width: 991px) {
+  #hero1 {
+    padding-top: 80px;
+  }
+  #hero1 .animated {
+    -webkit-animation: none;
+    animation: none;
+  }
+  #hero1 .hero1-img {
+    text-align: center;
+  }
+  #hero1 .hero1-img img {
+    max-width: 50%;
+  }
+  #hero1 h1 {
+    font-size: 28px;
+    line-height: 32px;
+    margin-bottom: 10px;
+  }
+  #hero1 h2 {
+    font-size: 18px;
+    line-height: 24px;
+    margin-bottom: 30px;
+  }
+}
+@media (max-width: 575px) {
+  #hero1 .hero1-img img {
     width: 80%;
   }
 }

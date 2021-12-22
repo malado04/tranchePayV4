@@ -2,145 +2,59 @@
 <html lang="en">
 
 <head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <title>Accueil | TRANCHE PAY</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <title>TRANCHE PAY</title>
-    <link rel="icon" href="{{asset ('image/logo.jpeg')}}">
-    
-    <link href="{{asset('template/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+  <!-- Favicons -->
+   <link rel="icon" href="{{asset ('image/logo1.png')}}">
 
-    <!-- Custom styles for this template-->
-    <link href="{{asset('css/logo.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('css/moncss.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset ('template/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
-    
-    <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('css/bootstraptableau.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{asset('css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" type="text/css">
-    
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{asset('templateindex/assets/vendor/aos/aos.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('templateindex/assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('templateindex/assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('templateindex/assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('templateindex/assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('templateindex/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('templateindex/assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css">
 
 
+  <style type="text/css">
+    .bg-rgba{
+      background-color: rgba(0,0,0,0.5);
+      border-radius: 15px;
+    }
+  </style>
+  <!-- Template Main CSS File -->
+  <link href="{{asset('templateindex/assets/css/style.css')}}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Bootslander - v4.7.0
+  * Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
 </head>
 
-<body id="page-top">
+<body>
 
-    <!-- Page Wrapper -->
-    <div id="wrapper">
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center bg-white">
+    <div class="container d-flex align-items-center justify-content-between">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bgnavouzin sidebar  sidebar-dark " id="accordionSidebar">
-            <!-- Sidebar - Brand -->
-            <a style="background-color:rgb(255,221,0)" class="sidebar-brand d-flex align-items-center justify-content-center" href="{{route('dashboard')}}">
-                <div  > 
-                     <img src="{{asset ('image/logo.jpeg')}}" class="logo" alt="">
-                </div> 
-            </a>
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-            <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
-                <a class="nav-link" href="{{route('dashboard')}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Acceuil</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item jaune">
-                <a class="nav-link collapsed" href="{{ route('listeversement') }}" >
-                    <span>Versements </span>
-                </a> 
-            </li>
-            
-            <hr class="sidebar-divider">
-
-            <li class="nav-item jaune">
-                <a class="nav-link collapsed" href="{{ route('mescommandes') }}" >
-                    <span>Commandes </span>
-                </a> 
-            </li>
-            <hr class="sidebar-divider">
-
-            <li class="nav-item jaune">
-                <a class="nav-link collapsed" href="{{ route('demandefinancement') }}" >
-                    <span>Demande de financement </span>
-                </a> 
-            </li>
-            <hr class="sidebar-divider">
-
-            <li class="nav-item jaune">
-                <a class="nav-link collapsed" href="#" >
-                    <span>Déplafonnement</span>
-                </a> 
-            </li>
-            <hr class="sidebar-divider">
-            <li class="nav-item jaune">
-                <a class="nav-link collapsed" href="#" >
-                    <span>Utiliser un code promotionnel </span>
-                </a> 
-            </li>
-            <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link collapsed jaune" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
-                    <span>Inviter un ami</span>
-                </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item " href="#"><i class="far fa-comment-alt"></i> SMS</a>
-                        <a class="collapse-item " href="#"><i class="fas fa-envelope"></i> Email</a>
-                        <a class="collapse-item " href="https://wa.me/?text= Bonjour, j’aimerais vous inviter à rejoindre tranchepay+https%3A%2F%2Fwww.tranchepay.com&app_absent=0">
-                            <i class="fab fa-whatsapp"></i> Whatsapp
-                        </a>
-                        <!-- <a class="collapse-item " href="#"><i class="fab fa-facebook"></i> Facebook</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a class="collapse-item " href="#"><i class="fab fa-twitter"></i> Twitter</a> -->
-                    </div>
-                </div>
-            </li>
-            <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link collapsed jaune" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Service</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{route('aideclient')}}">Aide</a>
-                        <a class="collapse-item" href="tel:+221338238469" > Service client </a> 
-                    </div>
-                </div>
-            </li>
-            <hr class="sidebar-divider d-none d-md-block">
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-        </ul>
-        <!-- End of Sidebar -->
-
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <!-- Declaration des variables globale -->
-                @php
+     
+      <div class="logo">
+        <!-- <h1><a href="index.html"><span>TranchePay logo</span></a></h1> -->
+        <!-- Uncomment below if you prefer to use an image logo -->
+         <a href="index.html"><img id="logo" src="{{asset ('image/logo1.png')}}" alt="" class="img-fluid"></a>
+      </div>
+            @php
                     $mtmontantverset=0;
                     $mttoutcommmande=0;
                     $mtversetclient=0;
@@ -166,6 +80,8 @@
                     <div class="d-sm-inline-block form-inline navbar-search btn btn-danger" style="width:250px">
                         Montant dû = {{$mttoutcommmande - $mtmontantverset - $mtversetclient}} F CFA
                     </div>
+                <!-- Declaration des variables globale -->
+               
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -202,18 +118,45 @@
 
                     </ul>
 
-                </nav>
-                    
+    </div>
+  </header><!-- End Header -->
 
-
+  <!-- ======= Hero Section ======= -->
+  <section id="hero1">
+    <div class="container">
+        <h2>Commandes</h2>
+        <!-- <div class="bg-rgba p-3 col-lg-12 order-1 order-lg-2 hero-img"> -->
+      <div class="row justify-content-between">
+        <div class="col-lg-2 text-center pt-1 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
+          <div data-aos="zoom-out">
+            <div class="list-group text-white" style="border-radius: 25px; background-color: rgb(2,248,255);" id="myList" role="tablist">
+            <img style="width: 26%; margin-left: 38%;" src="{{asset ('image/logo1.png')}}" alt="" class="img-fluid">
             <hr class="sidebar-divider">
-            <div class="row textealigner">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <H1>Listes des categories</H1>
-                </div>
-                <div class="col-md-3"></div>
-            </div>
+                <a style=" background-color: rgb(2,248,255);" class="nav-link collapsed" href="{{ route('listeversement') }}" >
+                    <span>Mon compte </span>
+                </a> 
+            <hr class="sidebar-divider">
+                <a style=" background-color: rgb(2,248,255);" class="nav-link collapsed" href="{{ route('listeversement') }}" >
+                    <span>Profil </span>
+                </a> 
+            <hr class="sidebar-divider">
+                <a style=" background-color: rgb(2,248,255);" class="nav-link collapsed" href="{{ route('mescommandes') }}" >
+                    <span>Commandes </span>
+                </a> 
+            <hr class="sidebar-divider">
+                <a style=" background-color: rgb(2,248,255);" class="nav-link collapsed" href="{{ route('listeversement') }}" >
+                    <span>Payements </span>
+                </a> 
+            <hr class="sidebar-divider">
+                <a style=" background-color: rgb(2,248,255);" class="nav-link collapsed" href="{{ route('listeversement') }}" >
+                    <span>Liste des achats </span>
+                </a> 
+            <hr class="sidebar-divider">
+             
+            </div> 
+          </div>
+        </div>
+        <div class="col-lg-10 order-1 order-lg-2 hero-img bg-white" data-aos="zoom-out" data-aos-delay="300" style="border-radius: 25px; "> 
             @foreach ($listecategorie as $categorie)
             <a href="{{route('listepartenaire',['categorie'=>$categorie->id])}}" > 
                 <div style="display: inline-flex;width:49% ;">
@@ -224,58 +167,116 @@
                 </div>  
             <a>         
             @endforeach
-    </div>   
-
-
-
-
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-body">Voulez vous vraiment quitter la session</div>
-                <div class="modal-footer">
-                    <button class="btn btn-warning" type="button" data-dismiss="modal" style="width: 100px">Annuler</button>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                            this.closest('form').submit();">
-                                <button class="btn btn-danger" style="width: 100px">OUI</button>
-                        </x-dropdown-link>
-                    </form>
-                </div>
-            </div>
         </div>
+      </div>
     </div>
-    <!-- Bootstrap core JavaScript-->
 
-    <script src="{{asset ('template/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset ('template/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
 
-    <!-- Core plugin JavaScript-->
-    <!-- <script src="{{asset ('template/vendor/jquery-easing/jquery.easing.min.js')}}"></script> -->
+  </section><!-- End Hero -->
+  <!-- ======= Hero Section ======= -->
 
-    <!-- Custom scripts for all pages-->
-    <script src="{{asset ('template/js/sb-admin-2.min.js')}}"></script>
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
 
-    <!-- Page level plugins -->
-    <script src="{{asset ('template/vendor/chart.js/Chart.min.js')}}"></script>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer-info">
+              <h3>Bootslander</h3>
+              <p class="pb-3"><em>Qui repudiandae et eum dolores alias sed ea. Qui suscipit veniam excepturi quod.</em></p>
+              <p>
+                A108 Adam Street <br>
+                NY 535022, USA<br><br>
+                <strong>Phone:</strong> +1 5589 55488 55<br>
+                <strong>Email:</strong> info@example.com<br>
+              </p>
+              <div class="social-links mt-3">
+                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
 
-    <!-- Page level custom scripts -->
-    <script src="{{asset ('template/js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset ('template/js/demo/chart-pie-demo.js')}}"></script>
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
 
-    <script src="{{asset ('js/jquery-3.5.1.js')}}"></script>
-    <script src="{{asset ('js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset ('js/dataTables.bootstrap5.min.js')}}"></script>
-    <script>
-        $(document).ready(function() {
-        $('#example').DataTable();
-        } );
-    </script>
+          <div class="col-lg-2 col-md-6 footer-links">
+            <h4>Our Services</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-4 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>Bootslander</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{{asset ('templateindex/assets/vendor/purecounter/purecounter.js')}}"></script>
+  <script src="{{asset ('templateindex/assets/vendor/aos/aos.js')}}"></script>
+  <script src="{{asset ('templateindex/assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset ('templateindex/assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+  <script src="{{asset ('templateindex/assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+  <script src="{{asset ('templateindex/assets/vendor/php-email-form/validate.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{asset ('templateindex/assets/js/main.js')}}"></script>
 
 </body>
 

@@ -10,7 +10,7 @@
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link rel="icon" href="{{asset ('image/logo.jpeg')}}">
+  <link rel="icon" href="{{asset ('image/logo1.png')}}">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -24,7 +24,6 @@
   <link href="{{asset('templateindex/assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('templateindex/assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet" type="text/css">
 
-
   <!-- Template Main CSS File -->
   <link href="{{asset('templateindex/assets/css/style.css')}}" rel="stylesheet">
   <style type="text/css">
@@ -33,43 +32,37 @@
       z-index: 1000%;
     }
     .bg-rgba{
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0,0,0,0.3);
       border-radius: 15px;
     }
-  </style>
-  <!-- =======================================================
-  * Template Name: Bootslander - v4.7.0
-  * Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  </style> 
 </head>
 
-<body>
+<body class="bs-teal">
 
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center header-transparent">
     <div class="container d-flex align-items-center justify-content-between">
 
       <div class="logo">
-        <h1><a href="index.html"><span>TranchePay logo</span></a></h1>
+        <!-- <h1><a href="index.html"><span>TranchePay logo</span></a></h1> -->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+         <a href="index.html"><img src="{{asset ('image/logo2.png')}}" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto active" href="{{route('dashboard')}}">Acceuil</a></li>
-          <li><a class="nav-link scrollto" href="{{route('documentation')}}">Documentation</a></li>
-          <li><a class="nav-link scrollto" href="{{route('commercant')}}">Commercant</a></li>
-          <li><a class="nav-link scrollto" href="{{route('particulier')}}">Particulier</a></li>
-          <li><a class="nav-link scrollto" href="{{route('contact')}}">Contact</a></li>
+          <li><a class="nav-link scrollto active" href="./">Acceuil</a></li>
+          <li><a class="nav-link scrollto" href="{{url('documentation')}}">Documentation</a></li>
+          <li><a class="nav-link scrollto " href="{{url('commercant')}}">Commercant</a></li>
+          <li><a class="nav-link scrollto" href="{{url('particulier')}}">Particulier</a></li>
+          <li><a class="nav-link scrollto" href="{{url('contact')}}">Contact</a></li>
           <li><a class="nav-link scrollto" href="{{route('login')}}">Connexion</a></li>
-          <li><a class="nav-link scrollto" href="{{route('choixinscription')}}">creer compte</a></li> 
+          <li><a class="nav-link scrollto" href="{{url('choixinscription')}}">creer compte</a></li>        
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
+ 
     </div>
   </header><!-- End Header -->
 
@@ -80,12 +73,13 @@
       <div class="row justify-content-between">
         <div class="col-lg-7 order-1 order-lg-2 hero-img mt-5" data-aos="zoom-out" data-aos-delay="300">
           <div data-aos="zoom-out">
-            <h1>Build Your Landing Page With <span>Bootstlander</span></h1>
-            <h2>We are team of talented designers making websites with Bootstrap</h2>
+            <h1>Build Your Landing Page With <span>Bootstlander</span></h1><br>
+            <h2>We are team of talented designers making websites with Bootstrap</h2><br>
             <div class="text-center text-lg-start">
-              <a href="#about" class="btn-get-started scrollto">Get Started</a>
+              <a href="#about" class="btn-get-started bg-white text-primary">En savoir plus</a>
             </div>
-          </div><br><br>
+          </div>
+          <!-- <br><br> -->
           <!--     <div class="row" id="zindex">
                 <div class="col-md-4 bg-rgba"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
                 <div class="col-md-4 bg-rgba"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
@@ -93,16 +87,16 @@
           </div> -->
         </div>
         <div class="col-lg-4 pt-5 pt-lg-0 order-2 order-lg-1 d-flex align-items-center">
-          <img src="{{asset('templateindex/assets/img/hero-img.png')}}" class="img-fluid animated" alt="">
+          <img src="{{asset ('image/femme.png')}}" class="img-fluid animated" alt="">
         </div>
       </div>
-<br><br>
+<!-- <br><br> -->
     <div class="row" id="zindex">
-      <div class="col-md-3 p-3 bg-rgba"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
+      <div class="col-md-3 p-3 bg-rgba text-white img-fluid animated"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
       <div class="col-md-1"></div>
-      <div class="col-md-3 p-3 bg-rgba"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
+      <div class="col-md-3 p-3 bg-rgba text-white img-fluid animated"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
       <div class="col-md-1"></div>
-      <div class="col-md-3 p-3 bg-rgba"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
+      <div class="col-md-3 p-3 bg-rgba text-white img-fluid animated"><h4>Lorem ipsum dolor</h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod</div>
     </div>
     </div><br><br>
     <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28 " preserveAspectRatio="none">
@@ -125,7 +119,7 @@
   <main id="main">
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <!-- <section id="about" class="about">
       <div class="container-fluid">
 
         <div class="row">
@@ -159,10 +153,10 @@
         </div>
 
       </div>
-    </section><!-- End About Section -->
+    </section> --><!-- End About Section -->
 
     <!-- ======= Features Section ======= -->
-    <section id="features" class="features">
+   <!--  <section id="features" class="features">
       <div class="container">
 
         <div class="section-title" data-aos="fade-up">
@@ -246,10 +240,10 @@
         </div>
 
       </div>
-    </section><!-- End Features Section -->
+    </section> --><!-- End Features Section -->
 
     <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts">
+   <!--  <section id="counts" class="counts">
       <div class="container">
 
         <div class="row" data-aos="fade-up">
@@ -289,10 +283,10 @@
         </div>
 
       </div>
-    </section><!-- End Counts Section -->
+    </section> --><!-- End Counts Section -->
 
     <!-- ======= Details Section ======= -->
-    <section id="details" class="details">
+   <!--  <section id="details" class="details">
       <div class="container">
 
         <div class="row content">
@@ -383,7 +377,7 @@
         </div>
 
       </div>
-    </section><!-- End Details Section -->
+    </section> --><!-- End Details Section -->
 
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">

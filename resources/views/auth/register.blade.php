@@ -30,7 +30,7 @@
             <div class="mt-4">
                 <x-label for="telephone" :value="__('Telephone')" />
 
-                <x-input id="telephone" class="block mt-1 w-full" type="number" name="telephone" :value="old('telephone')" required autofocus />
+                <x-input id="telephone" class="block mt-1 w-full" type="tel" name="telephone" :value="old('telephone')" required autofocus />
             </div>
 
             <input type="text" name="type" value="client" style="display:none;" >
